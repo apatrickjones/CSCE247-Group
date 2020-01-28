@@ -1,1 +1,1 @@
-# CSCE247-Group
+# Group ME Final Project CSCE247
