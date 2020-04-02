@@ -18,21 +18,21 @@ public class Pay {
 		return this.paymentInformation;
 	}
 	
+	//I've only created guestCheckout so far, once user classes are functional I will implement AccountHolderCheckout() 
 	public void guestCheckout(/*String personalInformation*/) {
 		
 		System.out.println("Enter the name of movie or event you wish to purchase tickets for: ");
 		Scanner key = new Scanner(System.in);
 		String event = key.nextLine();
 		System.out.println("\nDisplaying showings for "+event);
-		//event.displayShowings()
+		//Here is where I want to display the avaliable showings for the event
 		System.out.println("Enter number for showing you wish to attend: ");
 		int showingChoice = Integer.parseInt(key.nextLine());
-		//Now display available seating for showing
-		//event.displaySeating();
+		//Here is where I want to display the avaliable seating for the event
 		System.out.println("Enter seat selection: ");
 		String seatChoice = key.nextLine();
 		
-		//Now since it is a guest transaction, request payment info
+		//Now since it is a guest transaction, I request payment info
 		System.out.println("Please enter payment information: ");
 		String paymentInformation = key.nextLine();
 		while(paymentInformation.isEmpty()) {
@@ -61,6 +61,7 @@ public class Pay {
 		}
 	}
 	
+	//Functional, but will be polished before final version
 	public void printTicket(String event, int showingChoice, String seatChoice, String paymentInformation) throws IOException {
 		paymentInformation = "**** "+paymentInformation.substring(paymentInformation.length()-4,paymentInformation.length());
 		String ticketContent = ("-------TICKET-------\nEvent: "+event+"\nShowing #: "+showingChoice+"\nSeat(s): "+seatChoice+"\nPayment Information: "+paymentInformation);
