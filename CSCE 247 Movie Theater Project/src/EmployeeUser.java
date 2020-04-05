@@ -15,9 +15,9 @@ public class EmployeeUser extends Event {
 
     Scanner in = new Scanner(System.in);
         // HashMap for username and password storage
-    private Map<String, String> userMap = new HashMap<>();
-
-
+    private Map<String, String> employeeMap = new HashMap<>();
+    private Map<String, String> adminMap = new HashMap<>();
+    AdminUser au = new AdminUser();
 
         // Creates a new employee account and store the username/password in a hashmap
     public void createNewEmployeeAccount() {
@@ -31,14 +31,25 @@ public class EmployeeUser extends Event {
         String password = in.nextLine();
         registerUser(username, password);
     }
+
+
         // Helper method to ensure the username isn't taken
     public boolean isUsernameTaken(String username){
-        return userMap.containsKey(username);
+        if(au.isAdmin == true)
+            return adminMap.containsKey(username);
+        return employeeMap.containsKey(username);
     }
-        // Helper method to enter the user's username and password into the hashmap
-    public void registerUser(String username, String password){
-        userMap.put(username, password);
+
+        // Helper methods to enter the user's username and password into the hashmap
+    public void registerUser(String username, String password) {
+        employeeMap.put(username, password);
     }
+    public void registerUserAdmin(String username, String password) {
+        adminMap.put(username, password);
+    }
+
+
+
 
         // Compares the user's username and password to the hashmap, and logs them into the system if its correct
     public void employeeLogin() {
@@ -52,9 +63,18 @@ public class EmployeeUser extends Event {
         isLoggedIn = true;
         System.out.println("Login Successful");
     }
+
         // Helper method to ensure the username and password are correct
     public boolean isLoginCorrect(String username, String password) {
-        for(Map.Entry<String, String> entry : userMap.entrySet()) {
+        if(au.isAdmin == true) {
+            for(Map.Entry<String, String> entry : adminMap.entrySet()) {
+                String k = entry.getKey();
+                String v = entry.getValue();
+                if(k.equalsIgnoreCase(username) || v.equals(password))
+                    return true;
+            }
+        }
+        for(Map.Entry<String, String> entry : employeeMap.entrySet()) {
             String k = entry.getKey();
             String v = entry.getValue();
             if(k.equalsIgnoreCase(username) || v.equals(password))
@@ -63,8 +83,15 @@ public class EmployeeUser extends Event {
         return false;
     }
 
+
+
+
         // Removes the username and password from the hashmap if a user wishes to delete his/her account
     public void removeAccount() {
+        if(isLoggedIn != true) {
+            System.out.println("Sorrry, you must be logged in to delete an account");
+            return;
+        }
         System.out.println("Please enter the username and password of the account you wish to delete");
         String username = in.nextLine();
         String password = in.nextLine();
@@ -74,11 +101,16 @@ public class EmployeeUser extends Event {
         }
         System.out.println("Are you sure you wish to delete this account?");
         String answer = in.nextLine();
-        if(answer == "yes") {
-            userMap.remove(username);
-            userMap.remove(password);
-            System.out.println("Account Successfully deleted");
+        if(answer == "yes" && au.isAdmin != true) {
+            employeeMap.remove(username);
+            employeeMap.remove(password);
+            System.out.println("Employee Account successfully deleted");
             return;
+        }
+        else if(answer == "yes" && au.isAdmin == true) {
+            adminMap.remove(username);
+            adminMap.remove(password);
+            System.out.println("Admin Account successfully deleted");
         }
         else
             System.out.println("Account was not deleted.");
