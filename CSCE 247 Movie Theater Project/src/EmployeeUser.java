@@ -1,8 +1,12 @@
 /*
- *
+ * @author: Andrew Jones
+ * Need to go through and clean up this
  */
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 public class EmployeeUser extends Event {
+
 
     public boolean isLoggedIn = false;
     public String username;
@@ -10,8 +14,79 @@ public class EmployeeUser extends Event {
     public int rating;
 
     Scanner in = new Scanner(System.in);
+        // HashMap for username and password storage
+    private Map<String, String> userMap = new HashMap<>();
 
 
+
+        // Creates a new employee account and store the username/password in a hashmap
+    public void createNewEmployeeAccount() {
+        System.out.println("Please create your username:");
+        String username = in.nextLine();
+        if(isUsernameTaken(username) == true){
+            System.out.println("That username is already taken. Please enter another username:");
+            return;
+        }
+        System.out.println("Please create your password:");
+        String password = in.nextLine();
+        registerUser(username, password);
+    }
+        // Helper method to ensure the username isn't taken
+    public boolean isUsernameTaken(String username){
+        return userMap.containsKey(username);
+    }
+        // Helper method to enter the user's username and password into the hashmap
+    public void registerUser(String username, String password){
+        userMap.put(username, password);
+    }
+
+        // Compares the user's username and password to the hashmap, and logs them into the system if its correct
+    public void employeeLogin() {
+        System.out.println("Please enter your username and password:");
+        String username = in.nextLine();
+        String password = in.nextLine();
+        if(isLoginCorrect(username, password) != true) {
+            System.out.println("The username or password is incorrect");
+            return;
+        }
+        isLoggedIn = true;
+        System.out.println("Login Successful");
+    }
+        // Helper method to ensure the username and password are correct
+    public boolean isLoginCorrect(String username, String password) {
+        for(Map.Entry<String, String> entry : userMap.entrySet()) {
+            String k = entry.getKey();
+            String v = entry.getValue();
+            if(k.equalsIgnoreCase(username) || v.equals(password))
+                return true;
+        }
+        return false;
+    }
+
+        // Removes the username and password from the hashmap if a user wishes to delete his/her account
+    public void removeAccount() {
+        System.out.println("Please enter the username and password of the account you wish to delete");
+        String username = in.nextLine();
+        String password = in.nextLine();
+        if(isLoginCorrect(username, password) != true) {
+            System.out.println("Incorrect Username or Password");
+            return;
+        }
+        System.out.println("Are you sure you wish to delete this account?");
+        String answer = in.nextLine();
+        if(answer == "yes") {
+            userMap.remove(username);
+            userMap.remove(password);
+            System.out.println("Account Successfully deleted");
+            return;
+        }
+        else
+            System.out.println("Account was not deleted.");
+    }
+
+
+
+        // Overwrites an inappropriate or unwanted rating from a movie's comments
     public void setRating(int rating) { // Setter for rating
         if(rating >= 0 && rating <= 5)
             this.rating = rating;
@@ -19,39 +94,8 @@ public class EmployeeUser extends Event {
             System.out.println("Please input a rating of between 0 and 5");
     }
 
-    public void setPersonalInformation(String username, String password) {    // Setter for personalInformation
-        this.username = username;
-        this.password = password;
-    }
 
-
-    public void createNewEmployeeAccount() {
-        System.out.println("Please create your username:");
-        String username = in.nextLine();
-        if(true /*isUsernameTaken(username) == true*/){
-            System.out.println("That username is already taken. Please enter another username:");
-            return;
-        }
-        //storeUsername(username);
-        System.out.println("Please create your password:");
-        String password = in.nextLine();
-        //encodePassword(password);
-        //storePassword(password);
-
-    }
-
-    public void employeeLogin() {
-        System.out.println("Please enter your username and password:");
-        String username = in.nextLine();
-        String password = in.nextLine();
-        if(false /*isLoginCorrect(username, password) != true*/) {
-            System.out.println("The username or password is incorrect");
-            return;
-        }
-        isLoggedIn = true;
-        System.out.println("Login Successful");
-    }
-
+        // Adds an event to the Event class
     public void addEvent() {
         System.out.println("Please enter the title, description, director, runtime, and price");
         String title = in.nextLine();
@@ -63,10 +107,12 @@ public class EmployeeUser extends Event {
         System.out.println("Successfully added event");
     }
 
+        // toString method for an event
     public String viewEventInformation() {  // Not sure if I should use super.title or just title, or if this should just go in Event class
         return "Title: " + title + "\nDescription: " + super.description + "\nDirector: " + director + "\nRuntime: " + runTime + " minutes\nTicket Price: $" + price;
     }
 
+        // Allows the employee to edit an event's elements
     public void editEvent() {
         //Scanner in = new Scanner(System.in);
         System.out.println("Which part of the event would you like to change? (1) Title  (2) Description  (3) Director  (4) Runtime  (5) Ticket Price");
