@@ -6,9 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 public class AdminUser extends EmployeeUser {
 
-    public boolean isAdmin;
     public String reward;
-    //private Map<String, String> adminMap = new HashMap<>();
+
 
 
    /*
@@ -38,17 +37,35 @@ public class AdminUser extends EmployeeUser {
         if(isLoginCorrect(username, password)) {
             System.out.println("The username or password is incorrect");
         }
-        isLoggedIn = true;
-        isAdmin = true;
+        level = 3;
         System.out.println("Login Successful");
     }
 
+<<<<<<< HEAD
     /*
     * This method is setting the reward that is set by the admin for that specific user
     * @param setting the reward for the user
     */
+=======
+    // Helper methods to enter the user's username and password into the hashmap
+    public void registerUserAdmin(String username, String password) {
+        adminMap.put(username, password);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>> a5a51c0287e3c4d3e25d445e23881f80acd7f7cd
     public void setRewards(String reward) {    // Setter for reward
-        if(isAdmin != true)
+        if(level != 3)
             return;
         this.reward = reward;
     }
@@ -66,7 +83,7 @@ public class AdminUser extends EmployeeUser {
     * @returns that the user's review has been deleted by the admin
     */
     public void deleteReview() {
-        if(isAdmin != true)
+        if(level != 3)
             return;
         //TODO
     }
@@ -76,7 +93,7 @@ public class AdminUser extends EmployeeUser {
     * @returns that the comment has been edited and saved by the admin
     */
     public void editReview() {
-        if(isLoggedIn != true)
+        if(level != 3)
             return;
         //TODO
     }
