@@ -5,9 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 public class AdminUser extends EmployeeUser {
 
-    public boolean isAdmin;
     public String reward;
-    //private Map<String, String> adminMap = new HashMap<>();
+
 
 
 
@@ -30,15 +29,29 @@ public class AdminUser extends EmployeeUser {
         if(isLoginCorrect(username, password)) {
             System.out.println("The username or password is incorrect");
         }
-        isLoggedIn = true;
-        isAdmin = true;
+        level = 3;
         System.out.println("Login Successful");
 
     }
 
+    // Helper methods to enter the user's username and password into the hashmap
+    public void registerUserAdmin(String username, String password) {
+        adminMap.put(username, password);
+    }
+
+
+
+
+
+
+
+
+
+
+
 
     public void setRewards(String reward) {    // Setter for reward
-        if(isAdmin != true)
+        if(level != 3)
             return;
         this.reward = reward;
     }
@@ -47,13 +60,13 @@ public class AdminUser extends EmployeeUser {
         return this.reward;
     }
     public void deleteReview() {
-        if(isAdmin != true)
+        if(level != 3)
             return;
         //TODO
     }
 
     public void editReview() {
-        if(isLoggedIn != true)
+        if(level != 3)
             return;
         //TODO
     }

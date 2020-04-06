@@ -2,7 +2,7 @@
  *
  */
 import java.util.Scanner;
-public class GuestUser {
+public class GuestUser extends AccountHandler  {
 
     public int cardNumber;
     public int cvv;
