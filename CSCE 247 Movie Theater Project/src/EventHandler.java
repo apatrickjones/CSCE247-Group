@@ -23,23 +23,55 @@ public class EventHandler {
 				continue;
 			}
 			
-			//if they picked the last option then log them out
-			if(userCommand == getTargetMenu(menuType).length -1) break;
-		
-			switch(userCommand) {
+			
+			if (menuType.equalsIgnoreCase("payment")) {
+				switch(userCommand) {
+					case(0):
+						System.out.println("Proceding to Ticket Selection");
+						//Insert a command for the menu being display EX: purchaseTickets();
+						break;
+					case(1):
+						System.out.println("Call our toll free number for refund support! +1 (800) 123-4567");
+						//checkoutItem();
+						break;
+					case(2):
+						System.out.println("Returning to Main Menu");
+						//rateItem();
+						break;
+					case(3):
+						//payFine();
+						break;
+					case(4):
+						//Back to Main Menu
+						break;
+				}
+			} else if (menuType.equalsIgnoreCase("displayEvents")) {
+				switch(userCommand) {
 				case(0):
-					//Insert a command for the menu being display EX: purchaseTickets();
+					System.out.println("Displaying All Events");
+					//View All Events
 					break;
 				case(1):
-					//checkoutItem();
+					System.out.println("Displaying All Movies");
+					//View Movies
 					break;
 				case(2):
-					//rateItem();
+					System.out.println("Displaying All Plays");
+					//View Plays
 					break;
 				case(3):
-					//payFine();
+					System.out.println("Displaying All Concerts");
+					//View Concerts
 					break;
-			}
+				case(4):
+					System.out.println("Returning to Main Menu");
+					//Back to Main Menu
+					break;
+				}
+			} //If you want to add a new sub-menu, add the if and switch statements here
+			
+			//if they picked the last option then log them out
+			if(userCommand == getTargetMenu(menuType).length -1) break;
 		}
 	}
 	
@@ -47,11 +79,15 @@ public class EventHandler {
 		
 		String[] menuArray = null;
 		
-		if(menuType.equalsIgnoreCase("payment")) {
+		if (menuType.equalsIgnoreCase("payment")) {
 			
-			String[] paymentOptions = {"Buy Ticket(s)", "Request Refund", "Exit to main menu"};
+			String[] paymentOptions = {"Buy Ticket(s)", "Request Refund", "Exit to Main Menu"};
 			menuArray = paymentOptions;
-		} 
+		} else if(menuType.equalsIgnoreCase("displayEvents")) {
+			
+			String[] eventType = {"View All Events", "View Movies", "View Plays", "View Concerts", "Exit to Main Menu"};
+			menuArray = eventType;
+		}
 		// ^ use this format to create diffrent sub-menues to be selected
 		
 		return menuArray;

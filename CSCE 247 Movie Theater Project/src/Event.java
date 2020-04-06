@@ -2,10 +2,12 @@
  * @author Adampallante
  */
 import java.util.Scanner;
-public static final int COMMENT_LIMIT = 100;
+
 
 public class Event {
-
+  public static final int COMMENT_LIMIT = 100;
+  
+  
   public String theater, title, genre, description, showing;
   public double price, rating;
   boolean[] seating = new boolean[50];

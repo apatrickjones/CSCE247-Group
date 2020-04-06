@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class EventDriver {
 		
 		private static final String WELCOME_STRING = "Welcome to our event application!";
-		private String[] mainMenuOptions = {"Payment Options","Command2","Command3"};
+		private String[] mainMenuOptions = {"View Events","Payment Options","Command3"};
 		private Scanner scanner;
 		
 	
@@ -35,12 +35,13 @@ public class EventDriver {
 				
 				switch(userCommand) {
 					case(0):
-						System.out.println("ENTERING PAYMENT SUBMENU...");
-						Payment();
+						System.out.println("DISPLAYING ALL EVENTS");
+						displayEvents();
 						break;
 					case(1):
 						//call command2 here
-						System.out.println("ENTERED COMMAND 2");
+						System.out.println("ENTERING PAYMENT SUBMENU...");
+						Payment();
 						break;
 					case(2):
 						//call command3 here -- NOTE: selecting the last command exits the program
@@ -75,6 +76,10 @@ public class EventDriver {
 		private void Payment(){
 			EventHandler p1 = new EventHandler();
 			p1.run("payment");
+		}
+		private void displayEvents() {
+			EventHandler p1 = new EventHandler();
+			p1.run("displayEvents");
 		}
 		
 		public static void main(String[] args) {
