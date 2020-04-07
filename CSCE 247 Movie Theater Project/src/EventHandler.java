@@ -3,9 +3,14 @@
  * This class is handling all of the event properties
  *
  */
+import java.util.Iterator;
 import java.util.Scanner;
 import java.io.FileReader;
-import java.io.IOException;
+import java.math.*;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 
 public class EventHandler {
@@ -21,67 +26,82 @@ public class EventHandler {
 	* @param menuType can be multiple different options for the user to choose from
 	*/
 	public void run(String menuType) {
-		System.out.println(EventHandler.class.getResource("Events.json"));
-		FileReader file = new FileReader("bin/Events.json");
-
-		while(true) {
-			printMenuArray(getTargetMenu(menuType));
-
-			int userCommand = getUserCommand(getTargetMenu(menuType).length);
-
-			if(userCommand == -1) {
-				System.out.println("Not a valid command");
-				continue;
-			}
-
-			if (menuType.equalsIgnoreCase("payment")) {
-				switch(userCommand) {
+		JSONParser parser = new JSONParser();
+		try (FileReader file = new FileReader("Events.json")) {
+			
+			Object obj = parser.parse(file);
+			//JSONObject JSON = (JSONObject) obj;
+			JSONArray JArr = (JSONArray) obj;
+			System.out.println(JArr.toJSONString());
+			//JSONArray Jarr = (JSONArray) JSON.get("Event");
+			Iterator<JSONObject> iterator = JArr.iterator();
+			
+			while(true) {
+				printMenuArray(getTargetMenu(menuType));
+	
+				int userCommand = getUserCommand(getTargetMenu(menuType).length);
+	
+				if(userCommand == -1) {
+					System.out.println("Not a valid command");
+					continue;
+				}
+	
+				if (menuType.equalsIgnoreCase("payment")) {
+					switch(userCommand) {
+						case(0):
+							System.out.println("Proceding to Ticket Selection");
+							//Insert a command for the menu being display EX: purchaseTickets();
+							break;
+						case(1):
+							System.out.println("Call our toll free number for refund support! +1 (800) 123-4567");
+							//checkoutItem();
+							break;
+						case(2):
+							System.out.println("Returning to Main Menu");
+							//rateItem();
+							break;
+						case(3):
+							//payFine();
+							break;
+						case(4):
+							//Back to Main Menu
+							break;
+					}
+				} else if (menuType.equalsIgnoreCase("displayEvents")) {
+					switch(userCommand) {
 					case(0):
-						System.out.println("Proceding to Ticket Selection");
-						//Insert a command for the menu being display EX: purchaseTickets();
+						System.out.println("Displaying All Events");
+						//View All Events
+						while (iterator.hasNext()) {
+							parseJSON(iterator.next());
+							System.out.println("-------------------");
+						}
 						break;
 					case(1):
-						System.out.println("Call our toll free number for refund support! +1 (800) 123-4567");
-						//checkoutItem();
+						System.out.println("Displaying All Movies");
+						//View Movies
 						break;
 					case(2):
-						System.out.println("Returning to Main Menu");
-						//rateItem();
+						System.out.println("Displaying All Plays");
+						//View Plays
 						break;
 					case(3):
-						//payFine();
+						System.out.println("Displaying All Concerts");
+						//View Concerts
 						break;
 					case(4):
+						System.out.println("Returning to Main Menu");
 						//Back to Main Menu
 						break;
-				}
-			} else if (menuType.equalsIgnoreCase("displayEvents")) {
-				switch(userCommand) {
-				case(0):
-					System.out.println("Displaying All Events");
-					//View All Events
-					break;
-				case(1):
-					System.out.println("Displaying All Movies");
-					//View Movies
-					break;
-				case(2):
-					System.out.println("Displaying All Plays");
-					//View Plays
-					break;
-				case(3):
-					System.out.println("Displaying All Concerts");
-					//View Concerts
-					break;
-				case(4):
-					System.out.println("Returning to Main Menu");
-					//Back to Main Menu
-					break;
-				}
-			} //If you want to add a new sub-menu, add the if and switch statements here
-
-			//if they picked the last option then log them out
-			if(userCommand == getTargetMenu(menuType).length -1) break;
+					}
+				} //If you want to add a new sub-menu, add the if and switch statements here
+	
+				//if they picked the last option then log them out
+				if(userCommand == getTargetMenu(menuType).length -1) break;
+			}
+		} catch(Exception e) {
+			System.out.println(e);
+			System.out.println("We are sorry, an error has occured.\nReturning to Main Menu.");
 		}
 	}
 
@@ -132,6 +152,21 @@ public class EventHandler {
 
 		return -1;
 	}
-
+	
+	private void parseJSON(JSONObject a) {
+		System.out.println(a.get("Title"));
+		System.out.println(a.get("Description"));
+		JSONArray o = (JSONArray) a.get("Rating");
+		Long[] ratings = new Long[o.size()];
+	     for (int i = 0; i < o.size(); i++) {
+	        ratings[i] = (Long)o.get(i);
+	     }
+	     double ratingAVG = 0;
+	     for (int i = 0; i < ratings.length; i++) {
+	    	 ratingAVG += ratings[i];
+	     }
+	     ratingAVG /= ratings.length;
+	     System.out.println(ratingAVG + " Stars");
+	}
 
 }
