@@ -6,9 +6,21 @@
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Iterator;
+import java.util.*;
+import java.io.*;
+
 import java.io.FileWriter;
 import java.io.IOException;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
 public class AccountHandler {
+
+    public static int NUM_ELEMENTS = 13;
 
     /* Level 0 = Guest User, Level 1 = General User, Level 2 = Employee User, Level 4 = Admin User
      *
@@ -23,6 +35,8 @@ public class AccountHandler {
     public String username;
     public String password;
 
+    public String theater, title, genre, description, showing;
+    public double price, rating;
 
     // HashMaps for username and password storage
     public Map<String, String> employeeMap = new HashMap<>();
@@ -30,6 +44,8 @@ public class AccountHandler {
     public Map<String, String> generalMap = new HashMap<>();
 
     private static FileWriter file;
+    JSONParser jsonParser = new JSONParser();
+    JSONArray jsonArray = new JSONArray();
 
     Scanner in = new Scanner(System.in);
 
@@ -122,45 +138,78 @@ public class AccountHandler {
         return false;
     }
 
-
     /*
-     *  JSON file writer class
+     *  JSON file writer class. Needs to be able to edit JSON
+     *  @param takes in input for a certain event
      */
-    // Needs to be able to edit JSON,
-    public void JSONWriter() {
+    public void add() {
+        try {
+            Object obj = jsonParser.parse(new FileReader("Events.json"));
+            JSONObject event = new JSONObject();
+
+            String things[] = {"Title","Type","Genre","Description","Seating","Showings","Theatre","Month","Day","Hour","Minute","Rating","Price","Comments"};
+
+            System.out.println("Enter the title:");
+            title = in.nextLine();
+            System.out.println("Enter the type:");
+            title = in.nextLine();
+            System.out.println("Enter the genre:");
+            title = in.nextLine();
+            System.out.println("Enter the description:");
+            title = in.nextLine();
+            System.out.println("Enter the seating:");
+            title = in.nextLine();
+            System.out.println("Enter the showings:");
+            title = in.nextLine();
+            System.out.println("Enter the theatre:");
+            title = in.nextLine();
+            System.out.println("Enter the month:");
+            title = in.nextLine();
+            System.out.println("Enter the day:");
+            title = in.nextLine();
+            System.out.println("Enter the hour:");
+            title = in.nextLine();
+            System.out.println("Enter the minute:");
+            title = in.nextLine();
+            System.out.println("Enter the rating:");
+            title = in.nextLine();
+            System.out.println("Enter the price");
+            price = in.nextDouble();
+            System.out.println("Enter the comments");
+
+            String name = in.next();
+            int age  = in.nextInt();
+            int grade = in.nextInt();
+
+            event.put("name", name);
+            event.put("age", age);
+            event.put("grade", grade);
+            jsonArray.add(event);
+
+            FileWriter file = new FileWriter("Events.json");
+            file.write(jsonArray.toJSONString());
+            file.flush();
+            file.close();
+
+        } catch (ParseException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void CreateMovie() {
+        JSONObject json = new JSONObject();
+    }
+
+    public void CreatePlay() {
 
     }
 
-    public static JSONObject function(JSONObject obj, String keyMain,String valueMain, String newValue) throws Exception {
-        // We need to know keys of Jsonobject
-        JSONObject json = new JSONObject()
-        Iterator iterator = obj.keys();
-        String key = null;
-        while (iterator.hasNext()) {
-            key = (String) iterator.next();
-            // if object is just string we change value in key
-            if ((obj.optJSONArray(key)==null) && (obj.optJSONObject(key)==null)) {
-                if ((key.equals(keyMain)) && (obj.get(key).toString().equals(valueMain))) {
-                    // put new value
-                    obj.put(key, newValue);
-                    return obj;
-                }
-            }
+    public void CreateConcert() {
 
-            // if it's jsonobject
-            if (obj.optJSONObject(key) != null) {
-                function(obj.getJSONObject(key), keyMain, valueMain, newValue);
-            }
+    }
 
-            // if it's jsonarray
-            if (obj.optJSONArray(key) != null) {
-                JSONArray jArray = obj.getJSONArray(key);
-                for (int i=0;i<jArray.length();i++) {
-                    function(jArray.getJSONObject(i), keyMain, valueMain, newValue);
-                }
-            }
-        }
-        return obj;
+    public void EditEvent() {
+
     }
 
 }
