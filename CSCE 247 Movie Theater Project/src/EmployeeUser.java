@@ -31,7 +31,6 @@ public class EmployeeUser extends AccountHandler  {
     * Compares the user's username and password to the hashmap, and logs them into the system if its correct
     * @returns if the username and password are correct or incorrect
     */
-
     public void employeeLogin() {
         System.out.println("Please enter your username and password:");
         String username = in.nextLine();
