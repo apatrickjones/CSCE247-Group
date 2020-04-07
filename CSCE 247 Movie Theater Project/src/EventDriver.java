@@ -11,11 +11,8 @@ public class EventDriver {
 		private String[] mainMenuOptions = {"View Events","Payment Options","Command3"};
 		private Scanner scanner;
 
-
-
-		EventDriver(){
+		EventDriver() {
 			scanner = new Scanner(System.in);
-
 		}
 
 		/*
