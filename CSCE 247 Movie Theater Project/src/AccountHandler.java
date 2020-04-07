@@ -138,12 +138,10 @@ public class AccountHandler {
         return false;
     }
 
-
     /*
-     *  JSON file writer class
+     *  JSON file writer class. Needs to be able to edit JSON
+     *  @param takes in input for a certain event
      */
-    // Needs to be able to edit JSON,
-
     public void add() {
         try {
             Object obj = jsonParser.parse(new FileReader("Events.json"));
@@ -179,8 +177,6 @@ public class AccountHandler {
             price = in.nextDouble();
             System.out.println("Enter the comments");
 
-
-
             String name = in.next();
             int age  = in.nextInt();
             int grade = in.nextInt();
@@ -189,7 +185,6 @@ public class AccountHandler {
             event.put("age", age);
             event.put("grade", grade);
             jsonArray.add(event);
-
 
             FileWriter file = new FileWriter("Events.json");
             file.write(jsonArray.toJSONString());
