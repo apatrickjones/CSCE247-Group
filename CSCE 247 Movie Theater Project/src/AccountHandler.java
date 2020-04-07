@@ -126,8 +126,41 @@ public class AccountHandler {
     /*
      *  JSON file writer class
      */
+    // Needs to be able to edit JSON,
     public void JSONWriter() {
 
+    }
+
+    public static JSONObject function(JSONObject obj, String keyMain,String valueMain, String newValue) throws Exception {
+        // We need to know keys of Jsonobject
+        JSONObject json = new JSONObject()
+        Iterator iterator = obj.keys();
+        String key = null;
+        while (iterator.hasNext()) {
+            key = (String) iterator.next();
+            // if object is just string we change value in key
+            if ((obj.optJSONArray(key)==null) && (obj.optJSONObject(key)==null)) {
+                if ((key.equals(keyMain)) && (obj.get(key).toString().equals(valueMain))) {
+                    // put new value
+                    obj.put(key, newValue);
+                    return obj;
+                }
+            }
+
+            // if it's jsonobject
+            if (obj.optJSONObject(key) != null) {
+                function(obj.getJSONObject(key), keyMain, valueMain, newValue);
+            }
+
+            // if it's jsonarray
+            if (obj.optJSONArray(key) != null) {
+                JSONArray jArray = obj.getJSONArray(key);
+                for (int i=0;i<jArray.length();i++) {
+                    function(jArray.getJSONObject(i), keyMain, valueMain, newValue);
+                }
+            }
+        }
+        return obj;
     }
 
 }
