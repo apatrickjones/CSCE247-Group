@@ -11,8 +11,10 @@ public class EmployeeUser extends AccountHandler  {
 
     Scanner in = new Scanner(System.in);
 
-
-        // Creates a new employee account and store the username/password in a hashmap
+        /*
+        * Creates a new employee account and store the username/password in a hashmap
+        * @returns if the username is taken or avaliable
+        */
     public void createNewEmployeeAccount() {
         System.out.println("Please create your username:");
         String username = in.nextLine();
@@ -25,8 +27,11 @@ public class EmployeeUser extends AccountHandler  {
         registerUserEmployee(username, password);
     }
 
+    /*
+    * Compares the user's username and password to the hashmap, and logs them into the system if its correct
+    * @returns if the username and password are correct or incorrect
+    */
 
-    // Compares the user's username and password to the hashmap, and logs them into the system if its correct
     public void employeeLogin() {
         System.out.println("Please enter your username and password:");
         String username = in.nextLine();
@@ -42,8 +47,10 @@ public class EmployeeUser extends AccountHandler  {
 
 
 
-
-        // Helper methods to enter the user's username and password into the hashmap
+        /*
+        * Helper methods to enter the user's username and password into the hashmap
+        * @param username and password are being saved into a hashmap
+        */
     public void registerUserEmployee(String username, String password) {
         employeeMap.put(username, password);
     }
@@ -60,8 +67,10 @@ public class EmployeeUser extends AccountHandler  {
 
 
 
-
-        // Overwrites an inappropriate or unwanted rating from a movie's comments
+        /*
+        * Overwrites an inappropriate or unwanted rating from a movie's comments
+        * @param rating gets set by the user
+        */
     public void setRating(int rating) { // Setter for rating
         if(rating >= 0 && rating <= 5)
             this.rating = rating;
@@ -69,8 +78,10 @@ public class EmployeeUser extends AccountHandler  {
             System.out.println("Please input a rating of between 0 and 5");
     }
 
-
-        // Adds an event to the Event class
+        /*
+        * Adds an event and it's properties to the Event class
+        * @returns that the event and the properties of the event have been stored
+        */
     public void addEvent() {
         System.out.println("Please enter the title, description, director, runtime, and price");
         String title = in.nextLine();
