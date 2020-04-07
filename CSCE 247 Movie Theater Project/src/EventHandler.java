@@ -59,7 +59,6 @@ public class EventHandler {
 							break;
 						case(1):
 							System.out.println("Call our toll free number for refund support! +1 (800) 123-4567");
-							//checkoutItem();
 							break;
 						case(2):
 							System.out.println("Returning to Main Menu");
