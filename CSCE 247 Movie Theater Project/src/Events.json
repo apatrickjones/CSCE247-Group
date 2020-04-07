@@ -1,0 +1,26 @@
+[
+	{
+		"Title":"Frozen 2",
+		"Genre":"Family",
+		"Description":"Anna, Elsa, Kristoff, Olaf and Sven leave Arendelle to travel to an ancient, autumn-bound forest of an enchanted land. They set out to find the origin of Elsa's powers in order to save their kingdom.",
+		"Seating": [
+			[0,0,0,0,0,0,0,0,0,0],
+			[0,0,0,0,0,0,0,0,0,0],
+			[0,0,0,0,0,0,0,0,0,0],
+			[0,0,0,0,0,0,0,0,0,0],
+			[0,0,0,0,0,0,0,0,0,0],
+			[0,0,0,0,0,0,0,0,0,0],
+			[0,0,0,0,0,0,0,0,0,0]
+		],
+		"Showings": {
+			"Theatre":"Regal Columbiana",
+			"Month":"May",
+			"Day":5,
+			"Hour":14,
+			"Minute":30
+		},
+		"Rating":5,
+		"Price":12.00,
+		"Comments": ["Best movie ive seen this year","A Wonderful Film for All Ages"]
+	}
+]
