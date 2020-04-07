@@ -2,6 +2,9 @@
  *
  */
 import java.util.Scanner;
+import java.io.FileReader;
+import java.io.IOException;
+
 
 public class EventHandler {
 	//I decided to design the EventHandler similar to the MainDriver, kind of "sub-menu". Using the same structure as the main driver to increase efficiency and call methods effectively
@@ -12,7 +15,8 @@ public class EventHandler {
 	}
 	
 	public void run(String menuType) {
-		
+		System.out.println(EventHandler.class.getResource("Events.json"));
+		FileReader file = new FileReader("bin/Events.json");
 		while(true) {
 			printMenuArray(getTargetMenu(menuType));
 			
