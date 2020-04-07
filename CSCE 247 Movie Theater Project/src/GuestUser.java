@@ -1,4 +1,6 @@
 /*
+ * This class is handling the options  that the guest user will have if they don't sign into an account
+ * @Author: Team ME
  *
  */
 import java.util.Scanner;
@@ -10,7 +12,10 @@ public class GuestUser extends AccountHandler  {
     public int expYear;
     Scanner in = new Scanner(System.in);
 
-
+    /*
+    * This method is setting the payment information for the user
+    * @returns the payment information the user has entered to confirm the payment info is correct
+    */
     public void setPaymentInformation() { // Setter for paymentInformation
         System.out.println("Please enter your form of payment, either credit, debit, or cash");
         String paymentType = in.nextLine();
@@ -33,11 +38,18 @@ public class GuestUser extends AccountHandler  {
         System.out.println("Payment information successfully set");
     }
 
-
+    /*
+    * This method is returning the payment information the user has entered
+    * @returns the payment information
+    */
     public String getPaymentInformation() {    // Getter for personalInformation
         return "\nCard Number: " + this.cardNumber + "\nCVV: " + cvv + "\nExpiration MM/YY: " + expMonth + "/" + expYear;
     }
 
+    /*
+    * This method is allowing for the guest user to double check their payment info
+    * @returns that the user's payment info is either correct or not 
+    */
     public void guestCheckout() {
         System.out.println("Does this information look correct?" +  getPaymentInformation());
         String answer = in.nextLine();
