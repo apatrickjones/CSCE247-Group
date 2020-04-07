@@ -30,11 +30,7 @@ public class EventHandler {
 		try (FileReader file = new FileReader("Events.json")) {
 			
 			Object obj = parser.parse(file);
-			//JSONObject JSON = (JSONObject) obj;
 			JSONArray JArr = (JSONArray) obj;
-			System.out.println(JArr.toJSONString());
-			//JSONArray Jarr = (JSONArray) JSON.get("Event");
-			Iterator<JSONObject> iterator = JArr.iterator();
 			
 			while(true) {
 				printMenuArray(getTargetMenu(menuType));
@@ -68,9 +64,11 @@ public class EventHandler {
 							break;
 					}
 				} else if (menuType.equalsIgnoreCase("displayEvents")) {
+					Iterator<JSONObject> iterator = JArr.iterator();
 					switch(userCommand) {
 					case(0):
 						System.out.println("Displaying All Events");
+						System.out.println("-------------------");
 						//View All Events
 						while (iterator.hasNext()) {
 							parseJSON(iterator.next());
@@ -79,15 +77,39 @@ public class EventHandler {
 						break;
 					case(1):
 						System.out.println("Displaying All Movies");
+						System.out.println("-------------------");
 						//View Movies
+						while(iterator.hasNext()) {
+							JSONObject buffer = iterator.next();
+							if (buffer.containsValue("Movie")) {
+								parseJSON(buffer);
+								System.out.println("-------------------");
+							}
+						}
 						break;
 					case(2):
 						System.out.println("Displaying All Plays");
+						System.out.println("-------------------");
 						//View Plays
+						while(iterator.hasNext()) {
+							JSONObject buffer = iterator.next();
+							if (buffer.containsValue("Play")) {
+								parseJSON(buffer);
+								System.out.println("-------------------");
+							}
+						}
 						break;
 					case(3):
 						System.out.println("Displaying All Concerts");
+						System.out.println("-------------------");
 						//View Concerts
+						while(iterator.hasNext()) {
+							JSONObject buffer = iterator.next();
+							if (buffer.containsValue("Concert")) {
+								parseJSON(buffer);
+								System.out.println("-------------------");
+							}
+						}
 						break;
 					case(4):
 						System.out.println("Returning to Main Menu");
