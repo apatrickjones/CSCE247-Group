@@ -1,5 +1,7 @@
 /*
+ * This class deals with the refund process if the user chooses to get a refund
  * @Author Adampallante
+ *
  */
 import java.util.Scanner;
 public class Refund {
@@ -12,6 +14,10 @@ public class Refund {
   public String seats;
   Scanner in = new Scanner(System.in);
 
+  /*
+  * This method asks and sets the users information so that the refund can go to the right credit or debit card
+  * @param payment information is where the users info has been stored
+  */
   public void setPaymentInformation(String paymentInformation) {
     System.out.println("Please enter your form of payment, either credit, debit, or cash");
     String paymentInformation = in.nextLine();
@@ -34,6 +40,10 @@ public class Refund {
     System.out.println("Thank you, your payment information has been set");
   }
 
+  /*
+  * This method gets the payment information and returns it so the user can confirm their info is correct
+  * @returns the payment info of the user
+  */
   public String getPaymentInformation() {
     return "\nCard Number: " + this.cardNumber + "\nCVV: " + this.cvv + "\nExperation MM/YY: " + expMonth + "/" + expYear;
   }
@@ -42,6 +52,10 @@ public class Refund {
     //TODO
   }
 
+  /*
+  * This method confirms that the users information is right and gets them to confirm it so they can be refunded
+  * @param event seats paymentInformation is returned to the user so they can double check that is correct 
+  */
   public void refund(Event event, String seats, String paymentInformation) {
     System.out.println("Does this information look correct? Yes or No" + getPaymentInformation());
     String answer = in.nextLine();
