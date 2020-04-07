@@ -48,7 +48,10 @@ public class EventDriver {
 						break;
 					case(2):
 						//call command3 here -- NOTE: selecting the last command exits the program
-						System.out.println("ENTERED COMMAND 3\n\n");
+						System.out.println("ENTERING ACCOUNT SUBMENU...\n\n");
+						break;
+					case(3):
+						//Empty, exits program
 						break;
 				}
 			}
