@@ -2,14 +2,10 @@
  * @author: Andrew Jones
  * Need to go through and clean up this
  */
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+
 public class EmployeeUser extends AccountHandler  {
 
     public int rating;
-
-    Scanner in = new Scanner(System.in);
 
         /*
         * Creates a new employee account and store the username/password in a hashmap
@@ -69,7 +65,8 @@ public class EmployeeUser extends AccountHandler  {
         /*
         * Overwrites an inappropriate or unwanted rating from a movie's comments
         * @param rating gets set by the user
-        */
+        *
+
     public void setRating(int rating) { // Setter for rating
         if(rating >= 0 && rating <= 5)
             this.rating = rating;
@@ -77,10 +74,10 @@ public class EmployeeUser extends AccountHandler  {
             System.out.println("Please input a rating of between 0 and 5");
     }
 
-        /*
+        *
         * Adds an event and it's properties to the Event class
         * @returns that the event and the properties of the event have been stored
-        */
+        *
     public void addEvent() {
         System.out.println("Please enter the title, description, director, runtime, and price");
         String title = in.nextLine();
@@ -91,7 +88,6 @@ public class EmployeeUser extends AccountHandler  {
         //Event.addEvent(title, description, director, runTime, price);
         System.out.println("Successfully added event");
     }
-    /*
         // toString method for an event
     public String viewEventInformation() {  // Not sure if I should use super.title or just title, or if this should just go in Event class
         return "Title: " + title + "\nDescription: " + super.description + "\nDirector: " + director + "\nRuntime: " + runTime + " minutes\nTicket Price: $" + price;
@@ -136,5 +132,6 @@ public class EmployeeUser extends AccountHandler  {
     }
 
      */
+
 
 }
