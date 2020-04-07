@@ -35,7 +35,7 @@ public class AccountHandler {
     public String username;
     public String password;
 
-    public String theater, title, type, genre, description, showings, theatre, month;
+    public String title, type, genre, description, showings, theatre, month;
     public double day, hour, minute, rating, price;
 
     // HashMaps for username and password storage
