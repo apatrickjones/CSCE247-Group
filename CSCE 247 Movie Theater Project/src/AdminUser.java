@@ -2,8 +2,6 @@
  * @Author Team ME
  *This class allows the Admin user to log in and modify rewards and reviews
  */
-import java.util.HashMap;
-import java.util.Map;
 public class AdminUser extends EmployeeUser {
 
     public String reward;
@@ -61,40 +59,40 @@ public class AdminUser extends EmployeeUser {
     /*
     * This method is setting the reward that is set by the admin for that specific user
     * @param setting the reward for the user
-    */
+    *
     public void setRewards(String reward) {    // Setter for reward
         if(level != 3)
             return;
         this.reward = reward;
     }
 
-    /*
+    *
     * This method gets and returns the reward for the specific user
     * @returns the reward for the specific user
-    */
+    *
     public String getRewards() {
         return this.reward;
     }
 
-    /*
+    *
     * This method allows the admin user to delete a review left by a user
     * @returns that the user's review has been deleted by the admin
-    */
+    *
     public void deleteReview() {
         if(level != 3)
             return;
         //TODO
     }
 
-    /*
+    *
     * This method allows the admin to edit a review left by a user
     * @returns that the comment has been edited and saved by the admin
-    */
+    *
     public void editReview() {
         if(level != 3)
             return;
         //TODO
     }
-
+*/
 
 }

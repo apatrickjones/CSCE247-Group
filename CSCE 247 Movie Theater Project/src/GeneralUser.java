@@ -3,9 +3,6 @@
  * This class is allowing for a user to create an account and login
  *
  */
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
 public class GeneralUser extends AccountHandler {
 
     /*
