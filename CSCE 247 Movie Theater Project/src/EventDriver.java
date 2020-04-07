@@ -41,7 +41,7 @@ public class EventDriver {
 
 				switch(userCommand) {
 					case(0):
-						System.out.println("DISPLAYING ALL EVENTS");
+						System.out.println("ENTERING EVENTS SUBMENU...");
 						displayEvents();
 						break;
 					case(1):
