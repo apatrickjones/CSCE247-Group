@@ -1,4 +1,6 @@
 /*
+ * This class deals with all accounts, removal of accounts, seeing if the username is taken, and if the login is correct
+ * @Author: Team ME
  *
  */
 import java.util.HashMap;
@@ -22,8 +24,10 @@ public class AccountHandler {
 
     Scanner in = new Scanner(System.in);
 
-
-    // Removes the username and password from the hashmap if a user wishes to delete his/her account
+    /*
+    * Removes the username and password from the hashmap if a user wishes to delete his/her account
+    * @returns which account has been successfully deleted
+    */
     public void removeAccount() {
         if(level == 0) {
             System.out.println("Sorry, you must be logged in to delete an account");
@@ -63,8 +67,10 @@ public class AccountHandler {
 
 
 
-
-    // Helper method to ensure the username isn't taken
+    /*
+    * Helper method to ensure the username isn't taken
+    * @pararm username is being checked that it's not used already
+    */
     public boolean isUsernameTaken(String username) {
         if(level == 3)
             return eu.adminMap.containsKey(username);
@@ -76,7 +82,10 @@ public class AccountHandler {
             return false;
     }
 
-    // Helper method to ensure the username and password are correct
+    /*
+    * Helper method to ensure the username and password are correct
+    * @pararm username and password are being entered and checked to see if their correct
+    */
     public boolean isLoginCorrect(String username, String password) {
         if(level == 3) {
             for(Map.Entry<String, String> entry : adminMap.entrySet()) {
