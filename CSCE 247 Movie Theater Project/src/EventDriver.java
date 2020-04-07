@@ -41,17 +41,17 @@ public class EventDriver {
 
 				switch(userCommand) {
 					case(0):
-						System.out.println("ENTERING EVENTS SUBMENU...");
+						System.out.println("ENTERING EVENTS SUBMENU...\n\n");
 						displayEvents();
 						break;
 					case(1):
 						//call command2 here
-						System.out.println("ENTERING PAYMENT SUBMENU...");
+						System.out.println("ENTERING PAYMENT SUBMENU...\n\n");
 						Payment();
 						break;
 					case(2):
 						//call command3 here -- NOTE: selecting the last command exits the program
-						System.out.println("ENTERED COMMAND 3");
+						System.out.println("ENTERED COMMAND 3\n\n");
 						break;
 				}
 			}

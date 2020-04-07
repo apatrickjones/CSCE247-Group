@@ -67,7 +67,7 @@ public class EventHandler {
 					Iterator<JSONObject> iterator = JArr.iterator();
 					switch(userCommand) {
 					case(0):
-						System.out.println("Displaying All Events");
+						System.out.println("Displaying All Events\n\n");
 						System.out.println("-------------------");
 						//View All Events
 						while (iterator.hasNext()) {
@@ -76,7 +76,7 @@ public class EventHandler {
 						}
 						break;
 					case(1):
-						System.out.println("Displaying All Movies");
+						System.out.println("Displaying All Movies\n\n");
 						System.out.println("-------------------");
 						//View Movies
 						while(iterator.hasNext()) {
@@ -88,7 +88,7 @@ public class EventHandler {
 						}
 						break;
 					case(2):
-						System.out.println("Displaying All Plays");
+						System.out.println("Displaying All Plays\n\n");
 						System.out.println("-------------------");
 						//View Plays
 						while(iterator.hasNext()) {
@@ -100,7 +100,7 @@ public class EventHandler {
 						}
 						break;
 					case(3):
-						System.out.println("Displaying All Concerts");
+						System.out.println("Displaying All Concerts\n\n");
 						System.out.println("-------------------");
 						//View Concerts
 						while(iterator.hasNext()) {
@@ -112,7 +112,7 @@ public class EventHandler {
 						}
 						break;
 					case(4):
-						System.out.println("Returning to Main Menu");
+						System.out.println("Returning to Main Menu\n\n");
 						//Back to Main Menu
 						break;
 					}
