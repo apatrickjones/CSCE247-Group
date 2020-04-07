@@ -8,8 +8,6 @@ public class AdminUser extends EmployeeUser {
 
     public String reward;
 
-
-
    /*
    * This method is allowing a user to create their admin account
    * @returns if the username is avalible for use
@@ -41,13 +39,10 @@ public class AdminUser extends EmployeeUser {
         System.out.println("Login Successful");
     }
 
-<<<<<<< HEAD
     /*
-    * This method is setting the reward that is set by the admin for that specific user
-    * @param setting the reward for the user
+    * Helper methods to enter the user's username and password into the hashmap
+    * @param username and password are being changed
     */
-=======
-    // Helper methods to enter the user's username and password into the hashmap
     public void registerUserAdmin(String username, String password) {
         adminMap.put(username, password);
     }
@@ -63,7 +58,10 @@ public class AdminUser extends EmployeeUser {
 
 
 
->>>>>>> a5a51c0287e3c4d3e25d445e23881f80acd7f7cd
+    /*
+    * This method is setting the reward that is set by the admin for that specific user
+    * @param setting the reward for the user
+    */
     public void setRewards(String reward) {    // Setter for reward
         if(level != 3)
             return;
