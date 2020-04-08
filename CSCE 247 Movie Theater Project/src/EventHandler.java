@@ -82,6 +82,8 @@ public class EventHandler {
 							parseJSON(iterator.next());
 							System.out.println("-------------------");
 						}
+						System.out.println("Press Enter to continue");
+						scanner.nextLine();
 						break;
 					case(1):
 						System.out.println("Displaying All Movies\n\n");
@@ -94,6 +96,8 @@ public class EventHandler {
 								System.out.println("-------------------");
 							}
 						}
+						System.out.println("Press Enter to continue");
+						scanner.nextLine();
 						break;
 					case(2):
 						System.out.println("Displaying All Plays\n\n");
@@ -106,6 +110,8 @@ public class EventHandler {
 								System.out.println("-------------------");
 							}
 						}
+						System.out.println("Press Enter to continue");
+						scanner.nextLine();
 						break;
 					case(3):
 						System.out.println("Displaying All Concerts\n\n");
@@ -118,14 +124,20 @@ public class EventHandler {
 								System.out.println("-------------------");
 							}
 						}
+						System.out.println("Press Enter to continue");
+						scanner.nextLine();
 						break;
 					case(4):
 						System.out.println("Please type the exact name of the Event you want more info about.\n\n");
-						String selection = scanner.next();
+						String selection = scanner.nextLine();
 						if (findEvent(selection, JArr) != null) {
 							JSONObject O = findEvent(selection, JArr);
 							viewDetails(O);
+							System.out.println("Press Enter to continue");
+						} else {
+							System.out.println("That event is not in our system. Contact an Employee to add it!");
 						}
+						System.out.println("Press Enter to continue");
 						scanner.nextLine();
 						break;
 					case(5):
@@ -227,15 +239,12 @@ public class EventHandler {
 		
 		System.out.println("Description : " + a.get("Description"));
 		
-		JSONArray seating = (JSONArray) a.get("Seating");
-		System.out.println(seating.toJSONString());
-		
-		JSONArray showings = (JSONArray) a.get("Showings");
-		for (Object s:showings) {
-			JSONObject show = (JSONObject) s;
-			System.out.println("Showing at "+ show.get("Theatre") + " on " + show.get("Month") + " " + show.get("Day") + "," + show.get("Hour") +":"+ show.get("Minute"));
+		JSONArray seatMatrix = (JSONArray) a.get("Seating");
+		for(int i = 0; i < seatMatrix.size(); ++i) {
+			Object row = seatMatrix.get(i);
+			System.out.println("ROW "+i+":"+row);
 		}
-		
+				
 		JSONArray o = (JSONArray) a.get("Rating");
 		Long[] ratings = new Long[o.size()];
 	     for (int i = 0; i < o.size(); i++) {
