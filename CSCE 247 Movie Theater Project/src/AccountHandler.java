@@ -39,77 +39,43 @@ public class AccountHandler {
     public Map<String, String> adminMap = new HashMap<>();
     public Map<String, String> generalMap = new HashMap<>();
 
+
     /**
-     * Temporary variables for entering their values into Events.json
+     * Instance class for AccountHandler, Singleton design pattern
+     *
+     * @return the current instance of AccountHandler if one is open,
+     * @return a new instance of AccountHandler if one is not open
      */
-    public String title, type, genre, description, theatre, month;
-    public double day, hour, minute, price;
-
-    public void createNewEmployeeAccount() {
-        System.out.println("Please create your username:");
-        String username = in.nextLine();
-        if(isUsernameTaken(username) == true) {
-            System.out.println("That username is already taken. Please enter another username:");
-            return;
-        }
-        System.out.println("Please create your password:");
-        String password = in.nextLine();
-        registerUserEmployee(username, password);
-    }
-    public void registerUserEmployee(String username, String password) {
-        employeeMap.put(username, password);
-    }
-
-    public void createNewAdminAccount() {
-        System.out.println("Please create your username:");
-        String username = in.nextLine();
-        if(isUsernameTaken(username) == true) {
-            System.out.println("That username is already taken. Please enter another username:");
-            return;
-        }
-        System.out.println("Please create your password:");
-        String password = in.nextLine();
-        registerUserAdmin(username, password);
-    }
-    public void registerUserAdmin(String username, String password) {
-        adminMap.put(username, password);
-    }
-
-    public void createNewGeneralAccount() {
-        System.out.println("Please create your username:");
-        String username = in.nextLine();
-        if(isUsernameTaken(username) == true) {
-            System.out.println("That username is already taken. Please enter another username:");
-            return;
-        }
-        System.out.println("Please create your password:");
-        String password = in.nextLine();
-        registerUserGeneral(username, password);
-    }
-
-    public void registerUserGeneral(String username, String password) {
-        generalMap.put(username, password);
-    }
-
     public static AccountHandler getInstance() {
         if (accountHandler == null) {
-            System.out.println("Creating instance of AccountHandler hashmaps: ");
             accountHandler = new AccountHandler();
         }
         return accountHandler;
     }
 
+    /**
+     * Creates a new user account of the type specified and enters the username and password
+     * into the specific hashmap for that type of account
+     */
     public void createNewAccount() {
         System.out.println("Are you making a General, Employee, or Admin account?");
         String answer = in.nextLine();
+        System.out.println("Please create your username:");
+        String username = in.nextLine();
+        if(isUsernameTaken(username) == true) {
+            System.out.println("That username is already taken. Please enter another username:");
+            return;
+        }
+        System.out.println("Please create your password:");
+        String password = in.nextLine();
         if(answer.equalsIgnoreCase("general")) {
-            createNewGeneralAccount();
+            generalMap.put(username, password);
         }
         else if(answer.equalsIgnoreCase("employee")) {
-            createNewEmployeeAccount();
+            employeeMap.put(username, password);
         }
         else if(answer.equalsIgnoreCase("admin")) {
-            createNewAdminAccount();
+            adminMap.put(username, password);
         }
         else {
             System.out.println("You have to choose something!");
@@ -117,6 +83,11 @@ public class AccountHandler {
         }
     }
 
+    /**
+     * Logs user into their specified account
+     *
+     * @return whether or not the login was successful
+     */
     public void login() {
         System.out.println("What kind of account are you logging into? General, Employee or Admin");
         String answer = in.nextLine();
@@ -239,6 +210,9 @@ public class AccountHandler {
 
 
 
+
+    
+
     public String getRewards() {
         return reward;
     }
@@ -257,8 +231,12 @@ public class AccountHandler {
     //Object obj = jsonParser.parse(new FileReader("Events.json"));
     //private static FileWriter file;
 
-    
 
+    /**
+     * Temporary variables for entering their values into Events.json
+     */
+    public String title, type, genre, description, theatre, month;
+    public double day, hour, minute, price;
 
     /*
      *  JSON file writer class
@@ -275,7 +253,7 @@ public class AccountHandler {
     }
 
     public void addEvent () {
-    	/*System.out.println("Please enter your username and password to continue.");
+    	System.out.println("Please enter your username and password to continue.");
     	String username = in.nextLine();
     	String password = in.nextLine();
     	if (!isLoginCorrect(username,password)) {
@@ -285,7 +263,7 @@ public class AccountHandler {
     	if (level <= 2) {
     		System.out.println("Sorry, you do not have access to this command.");
     		return;
-    	}*/
+    	}
         try {
             JSONObject event = new JSONObject();
             JSONObject showing = new JSONObject();
