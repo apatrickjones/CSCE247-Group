@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 //import java.io.*;
-
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -16,6 +16,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 //import org.json.simple.parser.ParseException;
+import org.json.simple.parser.ParseException;
 
 public class AccountHandler {
 
@@ -151,8 +152,7 @@ public class AccountHandler {
     //Object obj = jsonParser.parse(new FileReader("Events.json"));
     //private static FileWriter file;
 
-    JSONParser jsonParser = new JSONParser();
-    JSONArray jsonArray = new JSONArray();
+    
 
 
     /*
@@ -161,6 +161,7 @@ public class AccountHandler {
     // Needs to be able to edit JSON,
         // Opens the index of deleted event to be overwritten
     public void removeEvent() {
+        JSONArray jsonArray = new JSONArray();
         System.out.println("Enter index of object to delete");
         int object = in.nextInt();
         System.out.println(jsonArray);
@@ -169,7 +170,7 @@ public class AccountHandler {
     }
 
     public void addEvent () {
-    	System.out.println("Please enter your username and password to continue.");
+    	/*System.out.println("Please enter your username and password to continue.");
     	String username = in.nextLine();
     	String password = in.nextLine();
     	if (!isLoginCorrect(username,password)) {
@@ -179,50 +180,55 @@ public class AccountHandler {
     	if (level <= 2) {
     		System.out.println("Sorry, you do not have access to this command.");
     		return;
-    	}
+    	}*/
         try {
             JSONObject event = new JSONObject();
             JSONObject showing = new JSONObject();
 
             System.out.println("Enter the title:");
             title = in.nextLine();
-            event.put("Title:", title);
+            event.put("Title", title);
 
             System.out.println("Enter the type of event:");
             type = in.nextLine();
-            event.put("Type:", type);
+            event.put("Type", type);
 
             System.out.println("Enter the genre:");
             genre = in.nextLine();
-            event.put("Genre:", genre);
+            event.put("Genre", genre);
 
             System.out.println("Enter the description:");
             description = in.nextLine();
-            event.put("Description:", description);
+            event.put("Description", description);
             
             System.out.println("Enter the number of rows in the theatre");
-            JSONArray seats[][] = new JSONArray[in.nextInt()][];
+            int numRow = in.nextInt();
+            JSONArray seats = new JSONArray();
             System.out.println("Do the rows have the same amount of seats in them?");
             in.next();
-            if (in.nextLine().equalsIgnoreCase("yes")) {
-            	for(int i = 0; i < seats.length; i++) {
+            if (in.nextLine().equalsIgnoreCase("no")) {
+            	for(int i = 0; i < numRow; i++) {
             		System.out.println("Enter the number of seats in row" + i);
-            		seats[i] = new JSONArray[in.nextInt()];
+            		int seatsOnRow = in.nextInt();
+            		JSONArray row = new JSONArray();
+            		for (int j = 0; j < seatsOnRow; j++) {
+            			row.add(0);
+            		}
+            		seats.add(row);
             	}
             } else {
             	System.out.println("How many seats are in a row?");
             	int seatsPerRow = in.nextInt();
-            	for (int i = 0; i < seats.length - 1; i++) {
-            		System.out.println(i);
-            		seats[i] = new JSONArray[seatsPerRow];
+            	for (int i = 0; i < numRow; i++) {
+            		JSONArray row = new JSONArray();
+            		for (int j = 0; j < seatsPerRow; j++) {
+            			row.add(0);
+            		}
+            		seats.add(row);
             	}
+            		
             }
-            for (int i = 0; i < seats.length - 1; i++) {
-            	for(int j = 0; j < seats[i].length - 1; j++) {
-            		System.out.println(i);
-            		seats[i][j].add(0);
-            	}
-            }
+            seats.toJSONString();
             event.put("seating", seats);
 
             System.out.println("Enter number of showings to add");
@@ -231,31 +237,31 @@ public class AccountHandler {
 
             for (int i = 0; i < counter; i++) {
                 System.out.println("Enter the theatre:");
-                //in.nextLine();
+                in.nextLine();
                 theatre = in.nextLine();
-                showing.put("Theatre:", theatre);
+                showing.put("Theatre", theatre);
 
                 System.out.println("Enter the month:");
                 //in.nextLine();
                 month = in.nextLine();
-                showing.put("Month:", month);
+                showing.put("Month", month);
 
                 System.out.println("Enter the day:");
                 day = in.nextInt();
-                showing.put("Day:", day);
+                showing.put("Day", day);
 
                 System.out.println("Enter the hour:");
                 hour = in.nextInt();
-                showing.put("Hour:", hour);
+                showing.put("Hour", hour);
 
                 System.out.println("Enter the minute:");
                 minute = in.nextInt();
-                showing.put("Minute:", minute);
+                showing.put("Minute", minute);
                 in.nextLine();
                 
                 showings.add(showing);
             }
-            event.put("Showings:", showings);
+            event.put("Showings", showings);
             
             System.out.println("Enter the number of Ratings to submit");
             int countR = in.nextInt();
@@ -265,32 +271,40 @@ public class AccountHandler {
             	System.out.println("Enter rating " + i);
             	ratings.add(in.nextInt());
             }
-            event.put("rating", ratings);
+            event.put("Rating", ratings);
             
             System.out.println("Enter the ticket price");
             price = in.nextDouble();
-            event.put("Price:", price);
+            event.put("Price", price);
             
             System.out.println("Enter the number of Comments to submit");
             int countC = in.nextInt();
             JSONArray comments = new JSONArray();
-            
+            in.nextLine();
             for (int i = 1; i < countR+1; i++) {
             	System.out.println("Enter Comment " + i);
             	comments.add(in.nextLine());
             }
             event.put("comments", comments);
 
-            jsonArray.add(event);
-
-            FileWriter file = new FileWriter("Events.json");
-            file.write(jsonArray.toJSONString());
-            file.flush();
-            file.close();
+            FileReader fileR = new FileReader("Events.json");
+            JSONParser parser = new JSONParser();
+            Object obj = parser.parse(fileR);
+			JSONArray JArr = (JSONArray) obj;
+            
+			JArr.add(event);
+            FileWriter fileW = new FileWriter("Events.json");
+            fileW.write(JArr.toJSONString());
+            fileR.close();
+            fileW.flush();
+            fileW.close();
 
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        } catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
 
