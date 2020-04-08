@@ -145,6 +145,18 @@ public class EventHandler {
 						//Back to Main Menu
 						break;
 					}
+				} else if (menuType.equalsIgnoreCase("account")) {
+					switch(userCommand) {
+					case(0):
+						//Add New Event
+						AccountHandler acc = new AccountHandler();
+						acc.addEvent();
+						break;
+					case(2):
+						System.out.println("Returning to Main Menu\n\n");
+						//Back to Main Menu
+						break;
+					}
 				} //If you want to add a new sub-menu, add the if and switch statements here
 	
 				//if they picked the last option then log them out
@@ -172,6 +184,9 @@ public class EventHandler {
 
 			String[] eventType = {"View All Events", "View Movies", "View Plays", "View Concerts", "View Details about an Event","Exit to Main Menu"};
 			menuArray = eventType;
+		} else if(menuType.equalsIgnoreCase("account")) {
+			String[] accountOptions = {"Add New Event", "Exit to Main Menu"};
+			menuArray = accountOptions;
 		}
 		// ^ use this format to create diffrent sub-menues to be selected
 

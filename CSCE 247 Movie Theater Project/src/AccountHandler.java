@@ -3,6 +3,7 @@
  * @Author: Team ME
  *
  */
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -167,7 +168,7 @@ public class AccountHandler {
         System.out.println("After deleting ::"+jsonArray);
     }
 
-    public void addEvent (int seating[], int rating[], String comments[]) {
+    public void addEvent () {
         try {
             JSONObject event = new JSONObject();
             JSONObject showing = new JSONObject();
@@ -187,20 +188,40 @@ public class AccountHandler {
             System.out.println("Enter the description:");
             description = in.nextLine();
             event.put("Description:", description);
+            
+            System.out.println("Enter the number of rows in the theatre");
+            JSONArray seats[][] = new JSONArray[in.nextInt()][];
+            System.out.println("Do the rows have the same amount of seats in them?");
+            in.next();
+            if (in.nextLine().equalsIgnoreCase("yes")) {
+            	for(int i = 0; i < seats.length; i++) {
+            		System.out.println("Enter the number of seats in row" + i);
+            		seats[i] = new JSONArray[in.nextInt()];
+            	}
+            } else {
+            	System.out.println("How many seats are in a row?");
+            	int seatsPerRow = in.nextInt();
+            	for (int i = 0; i < seats.length - 1; i++) {
+            		System.out.println(i);
+            		seats[i] = new JSONArray[seatsPerRow];
+            	}
+            }
+            for (int i = 0; i < seats.length - 1; i++) {
+            	for(int j = 0; j < seats[i].length - 1; j++) {
+            		System.out.println(i);
+            		seats[i][j].add(0);
+            	}
+            }
+            event.put("seating", seats);
 
-            event.put("seating", seating);
+            System.out.println("Enter number of showings to add");
+            int counter = in.nextInt();
+            JSONArray showings = new JSONArray();
 
-            System.out.println("Enter the showings, then type stop when done:");
-            event.put("Showings:", "");
-            int counter = 0;
-            showings = "";
-
-            while(showings != "stop") {
+            for (int i = 0; i < counter; i++) {
                 System.out.println("Enter the theatre:");
                 //in.nextLine();
                 theatre = in.nextLine();
-                if(theatre.equalsIgnoreCase("stop"))
-                    break;
                 showing.put("Theatre:", theatre);
 
                 System.out.println("Enter the month:");
@@ -220,16 +241,33 @@ public class AccountHandler {
                 minute = in.nextInt();
                 showing.put("Minute:", minute);
                 in.nextLine();
-                event.put("Showings" + counter, showing);
-                counter++;
+                
+                showings.add(showing);
             }
-
-            event.put("rating", rating);
-
+            event.put("Showings:", showings);
+            
+            System.out.println("Enter the number of Ratings to submit");
+            int countR = in.nextInt();
+            JSONArray ratings = new JSONArray();
+            
+            for (int i = 1; i < countR+1; i++) {
+            	System.out.println("Enter rating " + i);
+            	ratings.add(in.nextInt());
+            }
+            event.put("rating", ratings);
+            
             System.out.println("Enter the ticket price");
             price = in.nextDouble();
             event.put("Price:", price);
-
+            
+            System.out.println("Enter the number of Comments to submit");
+            int countC = in.nextInt();
+            JSONArray comments = new JSONArray();
+            
+            for (int i = 1; i < countR+1; i++) {
+            	System.out.println("Enter Comment " + i);
+            	comments.add(in.nextLine());
+            }
             event.put("comments", comments);
 
             jsonArray.add(event);

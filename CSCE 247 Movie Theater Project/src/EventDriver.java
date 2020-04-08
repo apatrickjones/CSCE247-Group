@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class EventDriver {
 
 		private static final String WELCOME_STRING = "Welcome to our event application!";
-		private String[] mainMenuOptions = {"View Events","Payment Options","Command3"};
+		private String[] mainMenuOptions = {"View Events","Payment Options","Account Options", "Exit Program"};
 		private Scanner scanner;
 
 		EventDriver() {
@@ -49,6 +49,7 @@ public class EventDriver {
 					case(2):
 						//call command3 here -- NOTE: selecting the last command exits the program
 						System.out.println("ENTERING ACCOUNT SUBMENU...\n\n");
+						accountOptions();
 						break;
 					case(3):
 						//Empty, exits program
@@ -103,7 +104,15 @@ public class EventDriver {
 			EventHandler p1 = new EventHandler();
 			p1.run("displayEvents");
 		}
-
+		
+		/*
+		* This method is in charge of accessing Account Options such as creating a new Event
+		* @returns the event and the properties of the event
+		*/
+		private void accountOptions() {
+			EventHandler p1 = new EventHandler();
+			p1.run("account");
+		}
 		/*
 		* This method is in charge of running the user interface
 		* @returns the execution of the user interface
