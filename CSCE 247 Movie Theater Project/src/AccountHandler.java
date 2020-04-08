@@ -169,6 +169,17 @@ public class AccountHandler {
     }
 
     public void addEvent () {
+    	System.out.println("Please enter your username and password to continue.");
+    	String username = in.nextLine();
+    	String password = in.nextLine();
+    	if (!isLoginCorrect(username,password)) {
+    		System.out.println("Incorrect Password. Returning to Menu.");
+    		return;
+    	}
+    	if (level <= 2) {
+    		System.out.println("Sorry, you do not have access to this command.");
+    		return;
+    	}
         try {
             JSONObject event = new JSONObject();
             JSONObject showing = new JSONObject();
