@@ -5,10 +5,11 @@
  */
 public class GeneralUser extends AccountHandler {
 
-    /*
-    * This method allows the user to create a new user account
-    * @returns if the username is already taken or is available
-    */
+    /**
+     * This method allows the user to create a new user account
+     *
+     * @returns if the username is already taken or is available
+     */
     public void createNewGeneralAccount() {
         System.out.println("Please create your username:");
         String username = in.nextLine();
@@ -21,10 +22,11 @@ public class GeneralUser extends AccountHandler {
         registerUserGeneral(username, password);
     }
 
-    /*
-    * Compares the user's username and password to the hashmap, and logs them into the system if its correct
-    * @returns if the username and password is correct or incorrect
-    */
+    /**
+     * Compares the user's username and password to the hashmap, and logs them into the system if its correct
+     *
+     * @returns if the username and password is correct or incorrect
+     */
     public void generalLogin() {
         level = 1;
         System.out.println("Please enter your username and password:");
@@ -37,10 +39,11 @@ public class GeneralUser extends AccountHandler {
         }
         System.out.println("Login Successful");
     }
-    /*
-    * Helper methods to enter the user's username and password into the hashmap
-    * @param username and password are being stored in a hasmap for accessability
-    */
+    /**
+     * Helper methods to enter the user's username and password into the hashmap
+     *
+     * @param username and password are being stored in a hasmap for accessability
+     */
     public void registerUserGeneral(String username, String password) {
         generalMap.put(username, password);
     }
