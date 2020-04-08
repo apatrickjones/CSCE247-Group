@@ -22,7 +22,8 @@ public class AccountHandler {
 
     public static int NUM_ELEMENTS = 13;
 
-    /* Level 0 = Guest User, Level 1 = General User, Level 2 = Employee User, Level 4 = Admin User
+    /**
+     *  Level 0 = Guest User, Level 1 = General User, Level 2 = Employee User, Level 4 = Admin User
      *
      * Guest can: input payment information and checkout    // Default, set to 0 by default and only changes if you log into a new account
      * General can: do everything a guest can, create a new general account, login to general account, get suggested movies, save payment information, and check viewing history
@@ -30,28 +31,33 @@ public class AccountHandler {
      * Admin can: do everything an employee can, create new admin account, login to admin account, change rewards, and change/delete reviews/ratings
      *
      */
-
-    public String reward = "";
     public int level = 0;
-    public String username;
-    public String password;
+    public String reward = "";
+
+    //public String username;
+    //public String password;
 
 
-
-    // HashMaps for username and password storage
+    /**
+     * HashMaps for username and password storage:
+     */
     public Map<String, String> employeeMap = new HashMap<>();
     public Map<String, String> adminMap = new HashMap<>();
     public Map<String, String> generalMap = new HashMap<>();
 
+    /**
+     * Temporary variables for entering their values into Events.json
+     */
     public String title, type, genre, description, showings, theatre, month;
     public double day, hour, minute, price;
 
     Scanner in = new Scanner(System.in);
 
-    /*
-    * Removes the username and password from the hashmap if a user wishes to delete his/her account
-    * @returns which account has been successfully deleted
-    */
+    /**
+     * Removes the username and password from the hashmap if a user wishes to delete his/her account
+     *
+     * @returns which account has been successfully deleted
+     */
     public void removeAccount() {
         if(level == 0) {
             System.out.println("Sorry, you must be logged in to delete an account");
@@ -87,10 +93,13 @@ public class AccountHandler {
             System.out.println("Account was not deleted.");
     }
 
-    /*
-    * Helper method to ensure the username isn't taken
-    * @pararm username is being checked that it's not used already
-    */
+    /**
+     * Helper method to ensure the username isn't taken
+     *
+     * @pararm username is being checked that it's not used already
+     * @return true if the username key has been taken by another account
+     * @return false if the username key has not been taken
+     */
     public boolean isUsernameTaken(String username) {
         if(adminMap.containsKey(username) == true)
             return adminMap.containsKey(username);
@@ -102,10 +111,13 @@ public class AccountHandler {
             return false;
     }
 
-    /*
-    * Helper method to ensure the username and password are correct
-    * @pararm username and password are being entered and checked to see if their correct
-    */
+    /**
+     * Helper method to ensure the username and password are correct
+     *
+     * @pararm username and password are being entered and checked to see if their correct
+     * @return true if the username and password's respective hashmap includes their key and value properly
+     * @return false if the username and password are incorrect
+     */
     public boolean isLoginCorrect(String username, String password) {
         if(level == 3) {
             for(Map.Entry<String, String> entry : adminMap.entrySet()) {
@@ -133,6 +145,8 @@ public class AccountHandler {
         }
         return false;
     }
+
+
 
     public String getRewards() {
         return reward;

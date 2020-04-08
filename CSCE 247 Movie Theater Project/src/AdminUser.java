@@ -4,12 +4,11 @@
  */
 public class AdminUser extends EmployeeUser {
 
-    public String reward;
-
-   /*
-   * This method is allowing a user to create their admin account
-   * @returns if the username is avalible for use
-   */
+   /**
+    * This method is allowing a user to create their admin account
+    *
+    * @returns if the username is avalible for use
+    */
     public void createNewAdminAccount() {
         System.out.println("Please create your username:");
         String username = in.nextLine();
@@ -22,10 +21,11 @@ public class AdminUser extends EmployeeUser {
         registerUserAdmin(username, password);
     }
 
-    /*
-    * This method is allowing the admin user to log in using their credentials
-    * @returns if the user has entered the correct user and password to log in
-    */
+    /**
+     * This method is allowing the admin user to log in using their credentials
+     *
+     * @returns if the user has entered the correct username and password to log in
+     */
     private void adminLogin() { // May have a code system where you must enter a specific code to be able to become an admin
         System.out.println("Please enter your username and password:");
         String username = in.nextLine();
@@ -37,10 +37,11 @@ public class AdminUser extends EmployeeUser {
         System.out.println("Login Successful");
     }
 
-    /*
-    * Helper methods to enter the user's username and password into the hashmap
-    * @param username and password are being changed
-    */
+    /**
+     * Helper methods to enter the user's username and password into the hashmap
+     *
+     * @param username and password are registered to the adminMap hashmap
+     */
     public void registerUserAdmin(String username, String password) {
         adminMap.put(username, password);
     }
