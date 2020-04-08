@@ -5,8 +5,6 @@
 
 public class EmployeeUser extends AccountHandler  {
 
-    public int rating;
-
         /*
         * Creates a new employee account and store the username/password in a hashmap
         * @returns if the username is taken or avaliable
@@ -28,6 +26,7 @@ public class EmployeeUser extends AccountHandler  {
     * @returns if the username and password are correct or incorrect
     */
     public void employeeLogin() {
+        level = 2;
         System.out.println("Please enter your username and password:");
         String username = in.nextLine();
         String password = in.nextLine();
@@ -39,9 +38,6 @@ public class EmployeeUser extends AccountHandler  {
         System.out.println("Login Successful");
     }
 
-
-
-
         /*
         * Helper methods to enter the user's username and password into the hashmap
         * @param username and password are being saved into a hashmap
@@ -51,6 +47,27 @@ public class EmployeeUser extends AccountHandler  {
     }
 
 
+    public void editRewards(String reward) {
+        if(level < 2) {
+            System.out.println("You must be an employee or higher to edit the reward");
+            return;
+        }
+        getRewards();
+        System.out.println("Would you like to change the current rewards?");
+        String answer = in.nextLine();
+        if(answer.equalsIgnoreCase("no")) {
+            System.out.println("Thank you");
+            return;
+        }
+        else if(answer != "yes") {
+            System.out.println("Please input either yes or no");
+            return;
+        }
+        System.out.println("Please enter the new reward");
+        reward = in.nextLine();
+        setRewards(reward);
+        System.out.println("The reward has been updated to " + getRewards() + ". Thank you");
+    }
 
 
 

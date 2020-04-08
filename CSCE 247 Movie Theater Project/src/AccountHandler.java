@@ -6,9 +6,7 @@
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.Iterator;
-import java.util.*;
-import java.io.*;
+//import java.io.*;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -16,7 +14,7 @@ import java.io.IOException;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+//import org.json.simple.parser.ParseException;
 
 public class AccountHandler {
 
@@ -31,21 +29,20 @@ public class AccountHandler {
      *
      */
 
+    public String reward = "";
     public int level = 0;
     public String username;
     public String password;
 
-    public String title, type, genre, description, showings, theatre, month;
-    public double day, hour, minute, rating, price;
+
 
     // HashMaps for username and password storage
     public Map<String, String> employeeMap = new HashMap<>();
     public Map<String, String> adminMap = new HashMap<>();
     public Map<String, String> generalMap = new HashMap<>();
 
-    private static FileWriter file;
-    JSONParser jsonParser = new JSONParser();
-    JSONArray jsonArray = new JSONArray();
+    public String title, type, genre, description, showings, theatre, month;
+    public double day, hour, minute, price;
 
     Scanner in = new Scanner(System.in);
 
@@ -88,20 +85,17 @@ public class AccountHandler {
             System.out.println("Account was not deleted.");
     }
 
-
-
-
     /*
     * Helper method to ensure the username isn't taken
     * @pararm username is being checked that it's not used already
     */
     public boolean isUsernameTaken(String username) {
-        if(level == 3)
+        if(adminMap.containsKey(username) == true)
             return adminMap.containsKey(username);
-        else if(level == 2)
+        else if(employeeMap.containsKey(username) == true)
             return employeeMap.containsKey(username);
-        else if(level == 1)
-            return adminMap.containsKey(username);
+        else if(generalMap.containsKey(username) == true)
+            return generalMap.containsKey(username);
         else
             return false;
     }
@@ -138,6 +132,27 @@ public class AccountHandler {
         return false;
     }
 
+    public String getRewards() {
+        return reward;
+    }
+
+    public void setRewards(String reward) {
+        this.reward = reward;
+    }
+
+
+
+
+
+
+
+
+    //Object obj = jsonParser.parse(new FileReader("Events.json"));
+    //private static FileWriter file;
+
+    JSONParser jsonParser = new JSONParser();
+    JSONArray jsonArray = new JSONArray();
+
 
     /*
      *  JSON file writer class
@@ -152,11 +167,8 @@ public class AccountHandler {
         System.out.println("After deleting ::"+jsonArray);
     }
 
-    public void addEvent(String comments[], int seating, int rating[]) {
-
+    public void addEvent (int seating[], int rating[], String comments[]) {
         try {
-
-            Object obj = jsonParser.parse(new FileReader("Events.json"));
             JSONObject event = new JSONObject();
             JSONObject showing = new JSONObject();
 
@@ -165,7 +177,7 @@ public class AccountHandler {
             event.put("Title:", title);
 
             System.out.println("Enter the type of event:");
-            String type = in.nextLine();
+            type = in.nextLine();
             event.put("Type:", type);
 
             System.out.println("Enter the genre:");
@@ -176,7 +188,7 @@ public class AccountHandler {
             description = in.nextLine();
             event.put("Description:", description);
 
-            //event.put("seating", seating);
+            event.put("seating", seating);
 
             System.out.println("Enter the showings, then type stop when done:");
             event.put("Showings:", "");
@@ -212,13 +224,13 @@ public class AccountHandler {
                 counter++;
             }
 
-            //event.put("rating", rating);
+            event.put("rating", rating);
 
             System.out.println("Enter the ticket price");
             price = in.nextDouble();
             event.put("Price:", price);
 
-            //event.put("comments", comments);
+            event.put("comments", comments);
 
             jsonArray.add(event);
 
@@ -227,10 +239,11 @@ public class AccountHandler {
             file.flush();
             file.close();
 
-        } catch (ParseException | IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
     public void editEvent() {
         System.out.println("Enter the index of the event you wish to edit");

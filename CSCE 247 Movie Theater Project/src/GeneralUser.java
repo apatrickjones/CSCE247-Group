@@ -26,14 +26,15 @@ public class GeneralUser extends AccountHandler {
     * @returns if the username and password is correct or incorrect
     */
     public void generalLogin() {
+        level = 1;
         System.out.println("Please enter your username and password:");
         String username = in.nextLine();
         String password = in.nextLine();
         if(isLoginCorrect(username, password) != true) {
             System.out.println("The username or password is incorrect");
+            level = 0;
             return;
         }
-        level = 1;
         System.out.println("Login Successful");
     }
     /*
