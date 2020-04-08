@@ -29,6 +29,10 @@ public class Pay {
 		return this.paymentInformation;
 	}
 	
+	/**
+	 * This method checks to see if user is an account holder, then calls on either UserCheckout() or guestCheckout()
+	 * @param An event
+	 */
 	public void checkout(JSONObject a) {
 		Scanner key = new Scanner(System.in);
 		System.out.println("Do you have an account? (Enter yes or no)");
@@ -41,11 +45,28 @@ public class Pay {
 			}
 			
 		} else if(accountResponse.equalsIgnoreCase("no")) {
-			guestCheckout(a);
+			System.out.println("Would you like to register for an account?");
+			accountResponse = key.nextLine();
+			if(accountResponse.equalsIgnoreCase("yes")) {
+				System.out.println("Enter a username for your new account:");
+				String newUsername = key.nextLine();
+				System.out.println("Enter a password for your new account:");
+				String newPassword = key.nextLine();
+				GeneralUser newUser = new GeneralUser();
+				newUser.registerUserGeneral(newUsername, newPassword);
+				System.out.println("New accout registered!");
+				checkout(a);
+			} else if (accountResponse.equalsIgnoreCase("no")) {
+				guestCheckout(a);
+			}
 		}
 	}
 	
-	
+	/**
+	 * 
+	 * This method walks an account holding user through the checkout process
+	 * @param An event, A User 
+	 */
 	public void userCheckout(JSONObject a, GeneralUser user) {
 		Scanner key = new Scanner(System.in);
 		System.out.println(a.get("Title"));
@@ -69,7 +90,7 @@ public class Pay {
 		String seatChoice = key.nextLine();
 		
 		System.out.println("Retreving account payment information...");
-		//Retreive User's paymentInformation
+		//Retrieve User's paymentInformation
 		System.out.println("Payment information not found!\n");
 		
 		System.out.println("Please enter payment information: ");
@@ -100,10 +121,9 @@ public class Pay {
 		
 	}
 	/*
-	* This method deals with a guest without an actual account
+	* This method walks a guest user through the checkout process
 	* @param personal information is filled out and stored for the guest user
 	*/
-	//I've only created guestCheckout so far, once user classes are functional I will implement AccountHolderCheckout()
 	public void guestCheckout(JSONObject a) {
 		
 		Scanner key = new Scanner(System.in);
@@ -158,9 +178,8 @@ public class Pay {
 
 	/*
 	* This method deals with priting out the ticket if the user selects to print the ticket out
-	* @param event, showingChoice, seatChoice, paymentInformation will all be printed out when the user chooses to
+	* @param An event, string paymentInformation
 	*/
-	//Functional, but will be polished before final version
 	public void printTicket(JSONObject a, String paymentInformation) throws IOException {
 		
 		String event = (String) a.get("Title");
