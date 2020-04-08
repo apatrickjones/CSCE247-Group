@@ -39,6 +39,7 @@ public class Pay {
 		String accountResponse = key.nextLine();
 		if(accountResponse.equalsIgnoreCase("yes")) {
 			GeneralUser user = new GeneralUser();
+			user.level = 1;
 			user.generalLogin();
 			if(user.level == 1) {
 				userCheckout(a, user);
@@ -48,12 +49,8 @@ public class Pay {
 			System.out.println("Would you like to register for an account?");
 			accountResponse = key.nextLine();
 			if(accountResponse.equalsIgnoreCase("yes")) {
-				System.out.println("Enter a username for your new account:");
-				String newUsername = key.nextLine();
-				System.out.println("Enter a password for your new account:");
-				String newPassword = key.nextLine();
 				GeneralUser newUser = new GeneralUser();
-				newUser.registerUserGeneral(newUsername, newPassword);
+				newUser.createNewGeneralAccount();
 				System.out.println("New accout registered!");
 				checkout(a);
 			} else if (accountResponse.equalsIgnoreCase("no")) {
@@ -70,8 +67,8 @@ public class Pay {
 	public void userCheckout(JSONObject a, GeneralUser user) {
 		Scanner key = new Scanner(System.in);
 		System.out.println(a.get("Title"));
-		String eventName = (String) a.get("Title");
-		System.out.println("\n--Showing information--");
+		String eventName = (String) a.get("\nTitle");
+		System.out.println("--Showing information--");
 		
 		System.out.println("Event Name: "+eventName);
 		JSONObject showingsInfo = (JSONObject) a.get("Showings");
