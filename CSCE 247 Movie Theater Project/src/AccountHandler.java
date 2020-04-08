@@ -243,7 +243,7 @@ public class AccountHandler {
             		
             }
             seats.toJSONString();
-            event.put("seating", seats);
+            event.put("Seating", seats);
 
             System.out.println("Enter number of showings to add");
             int counter = in.nextInt();
@@ -295,11 +295,12 @@ public class AccountHandler {
             int countC = in.nextInt();
             JSONArray comments = new JSONArray();
             in.nextLine();
-            for (int i = 1; i < countR+1; i++) {
+            System.out.println(countC);
+            for (int i = 1; i < countC+1; i++) {
             	System.out.println("Enter Comment " + i);
             	comments.add(in.nextLine());
             }
-            event.put("comments", comments);
+            event.put("Comments", comments);
 
             FileReader fileR = new FileReader("Events.json");
             JSONParser parser = new JSONParser();

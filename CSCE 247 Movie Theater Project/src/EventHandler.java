@@ -133,7 +133,6 @@ public class EventHandler {
 						if (findEvent(selection, JArr) != null) {
 							JSONObject O = findEvent(selection, JArr);
 							viewDetails(O);
-							System.out.println("Press Enter to continue");
 						} else {
 							System.out.println("That event is not in our system. Contact an Employee to add it!");
 						}
@@ -254,7 +253,7 @@ public class EventHandler {
 		 System.out.println("Description : " + a.get("Description"));
 		 
 		 JSONArray seatMatrix = (JSONArray) a.get("Seating");
-		 for(int i = 0; i < seatMatrix.size(); ++i) {
+		 for(int i = 1; i < seatMatrix.size()+1; ++i) {
 			 Object row = seatMatrix.get(i);
 			 System.out.println("ROW "+i+":"+row);
 		 }
