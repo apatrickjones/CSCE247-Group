@@ -46,11 +46,19 @@ public class EventHandler {
 					switch(userCommand) {
 						case(0):
 							System.out.println("Proceding to Ticket Selection");
-							//Insert a command for the menu being display EX: purchaseTickets();
+							System.out.println("Enter the name of the event you would like to attend:");
+							String eventTitle = scanner.nextLine();
+							Iterator<JSONObject> iterator = JArr.iterator();
+							while(iterator.hasNext()) {
+								JSONObject buffer = iterator.next();
+								if (buffer.containsValue(eventTitle)) {
+									Pay p1 = new Pay();
+									p1.checkout(buffer);
+								}
+							}
 							break;
 						case(1):
 							System.out.println("Call our toll free number for refund support! +1 (800) 123-4567");
-							//checkoutItem();
 							break;
 						case(2):
 							System.out.println("Returning to Main Menu");

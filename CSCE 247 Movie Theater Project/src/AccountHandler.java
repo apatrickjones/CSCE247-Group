@@ -35,8 +35,8 @@ public class AccountHandler {
     public String username;
     public String password;
 
-    public String theater, title, genre, description, showing;
-    public double price, rating;
+    public String title, type, genre, description, showings, theatre, month;
+    public double day, hour, minute, rating, price;
 
     // HashMaps for username and password storage
     public Map<String, String> employeeMap = new HashMap<>();
@@ -138,52 +138,88 @@ public class AccountHandler {
         return false;
     }
 
+
     /*
-     *  JSON file writer class. Needs to be able to edit JSON
-     *  @param takes in input for a certain event
+     *  JSON file writer class
      */
-    public void add() {
+    // Needs to be able to edit JSON,
+        // Opens the index of deleted event to be overwritten
+    public void removeEvent() {
+        System.out.println("Enter index of object to delete");
+        int object = in.nextInt();
+        System.out.println(jsonArray);
+        jsonArray.remove(object);
+        System.out.println("After deleting ::"+jsonArray);
+    }
+
+    public void addEvent(String comments[], int seating, int rating[]) {
+
         try {
+
             Object obj = jsonParser.parse(new FileReader("Events.json"));
             JSONObject event = new JSONObject();
-
-            String things[] = {"Title","Type","Genre","Description","Seating","Showings","Theatre","Month","Day","Hour","Minute","Rating","Price","Comments"};
+            JSONObject showing = new JSONObject();
 
             System.out.println("Enter the title:");
             title = in.nextLine();
-            System.out.println("Enter the type:");
-            title = in.nextLine();
+            event.put("Title:", title);
+
+            System.out.println("Enter the type of event:");
+            String type = in.nextLine();
+            event.put("Type:", type);
+
             System.out.println("Enter the genre:");
-            title = in.nextLine();
+            genre = in.nextLine();
+            event.put("Genre:", genre);
+
             System.out.println("Enter the description:");
-            title = in.nextLine();
-            System.out.println("Enter the seating:");
-            title = in.nextLine();
-            System.out.println("Enter the showings:");
-            title = in.nextLine();
-            System.out.println("Enter the theatre:");
-            title = in.nextLine();
-            System.out.println("Enter the month:");
-            title = in.nextLine();
-            System.out.println("Enter the day:");
-            title = in.nextLine();
-            System.out.println("Enter the hour:");
-            title = in.nextLine();
-            System.out.println("Enter the minute:");
-            title = in.nextLine();
-            System.out.println("Enter the rating:");
-            title = in.nextLine();
-            System.out.println("Enter the price");
+            description = in.nextLine();
+            event.put("Description:", description);
+
+            //event.put("seating", seating);
+
+            System.out.println("Enter the showings, then type stop when done:");
+            event.put("Showings:", "");
+            int counter = 0;
+            showings = "";
+
+            while(showings != "stop") {
+                System.out.println("Enter the theatre:");
+                //in.nextLine();
+                theatre = in.nextLine();
+                if(theatre.equalsIgnoreCase("stop"))
+                    break;
+                showing.put("Theatre:", theatre);
+
+                System.out.println("Enter the month:");
+                //in.nextLine();
+                month = in.nextLine();
+                showing.put("Month:", month);
+
+                System.out.println("Enter the day:");
+                day = in.nextInt();
+                showing.put("Day:", day);
+
+                System.out.println("Enter the hour:");
+                hour = in.nextInt();
+                showing.put("Hour:", hour);
+
+                System.out.println("Enter the minute:");
+                minute = in.nextInt();
+                showing.put("Minute:", minute);
+                in.nextLine();
+                event.put("Showings" + counter, showing);
+                counter++;
+            }
+
+            //event.put("rating", rating);
+
+            System.out.println("Enter the ticket price");
             price = in.nextDouble();
-            System.out.println("Enter the comments");
+            event.put("Price:", price);
 
-            String name = in.next();
-            int age  = in.nextInt();
-            int grade = in.nextInt();
+            //event.put("comments", comments);
 
-            event.put("name", name);
-            event.put("age", age);
-            event.put("grade", grade);
             jsonArray.add(event);
 
             FileWriter file = new FileWriter("Events.json");
@@ -196,19 +232,10 @@ public class AccountHandler {
         }
     }
 
-    public void CreateMovie() {
-        JSONObject json = new JSONObject();
-    }
+    public void editEvent() {
+        System.out.println("Enter the index of the event you wish to edit");
+        int index = in.nextInt();
 
-    public void CreatePlay() {
-
-    }
-
-    public void CreateConcert() {
-
-    }
-
-    public void EditEvent() {
 
     }
 

@@ -20,7 +20,7 @@ public class Refund {
   */
   public void setPaymentInformation(String paymentInformation) {
     System.out.println("Please enter your form of payment, either credit, debit, or cash");
-    String paymentInformation = in.nextLine();
+    paymentInformation = in.nextLine();
     if(paymentInformation.equalsIgnoreCase("debit") || paymentInformation.equalsIgnoreCase("credit")) {
       System.out.println("Please enter your card number: ");
       this.cardNumber = in.nextInt();
@@ -28,7 +28,7 @@ public class Refund {
       this.cvv = in.nextInt();
       System.out.println("Please enter your experation Month: ");
       this.expMonth = in.nextInt();
-      System.out.pritnln("Please enter your experation year: ");
+      System.out.println("Please enter your experation year: ");
       this.expYear = in.nextInt();
     }
     else if(paymentInformation.equalsIgnoreCase("cash"))
@@ -56,17 +56,19 @@ public class Refund {
   * This method confirms that the users information is right and gets them to confirm it so they can be refunded
   * @param event seats paymentInformation is returned to the user so they can double check that is correct 
   */
-  public void refund(Event event, String seats, String paymentInformation) {
+
+  public void refund(String seats, String paymentInformation) {
     System.out.println("Does this information look correct? Yes or No" + getPaymentInformation());
     String answer = in.nextLine();
     if(answer.equalsIgnoreCase("no")) {
-      setPaymentInformation();
+      System.out.println("Too bad");
       return;
-    }
-    else if(answer != answer.equalsIgnoreCase("yes")) {
+  }
+    else if(answer != "yes" || answer != "no") {    ////////////////////////////
       System.out.println("Please enter 'Yes' or 'No'");
       return;
     }
+    System.out.println("Your refund is being processed. Thank you.");
   }
-System.out.println("Your refund is being processed. Thank you.")
+
 }
