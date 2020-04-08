@@ -112,6 +112,15 @@ public class EventHandler {
 						}
 						break;
 					case(4):
+						System.out.println("Please type the exact name of the Event you want more info about.\n\n");
+						String selection = scanner.next();
+						if (findEvent(selection, JArr) != null) {
+							JSONObject O = findEvent(selection, JArr);
+							viewDetails(O);
+						}
+						scanner.nextLine();
+						break;
+					case(5):
 						System.out.println("Returning to Main Menu\n\n");
 						//Back to Main Menu
 						break;
@@ -141,7 +150,7 @@ public class EventHandler {
 			menuArray = paymentOptions;
 		} else if(menuType.equalsIgnoreCase("displayEvents")) {
 
-			String[] eventType = {"View All Events", "View Movies", "View Plays", "View Concerts", "Exit to Main Menu"};
+			String[] eventType = {"View All Events", "View Movies", "View Plays", "View Concerts", "View Details about an Event","Exit to Main Menu"};
 			menuArray = eventType;
 		}
 		// ^ use this format to create diffrent sub-menues to be selected
@@ -175,6 +184,17 @@ public class EventHandler {
 		return -1;
 	}
 	
+	private JSONObject findEvent(String selection, JSONArray JArr) {
+		Iterator<JSONObject> iterator = JArr.iterator();
+			while(iterator.hasNext()) {
+				JSONObject buffer = iterator.next();
+				if (buffer.containsValue(selection)) {
+					return buffer;
+				}
+			}
+		return null;
+	}
+	
 	private void parseJSON(JSONObject a) {
 		System.out.println(a.get("Title"));
 		System.out.println(a.get("Description"));
@@ -189,6 +209,42 @@ public class EventHandler {
 	     }
 	     ratingAVG /= ratings.length;
 	     System.out.println(ratingAVG + " Stars");
+	}
+	
+	private void viewDetails(JSONObject a) {
+		;
+		System.out.println("Title: " + a.get("Title"));
+		
+		System.out.println("Genre: " + a.get("Genre"));
+		
+		System.out.println("Description : " + a.get("Description"));
+		
+		JSONArray seating = (JSONArray) a.get("Seating");
+		System.out.println(seating.toJSONString());
+		
+		JSONArray showings = (JSONArray) a.get("Showings");
+		for (Object s:showings) {
+			JSONObject show = (JSONObject) s;
+			System.out.println("Showing at "+ show.get("Theatre") + " on " + show.get("Month") + " " + show.get("Day") + "," + show.get("Hour") +":"+ show.get("Minute"));
+		}
+		
+		JSONArray o = (JSONArray) a.get("Rating");
+		Long[] ratings = new Long[o.size()];
+	     for (int i = 0; i < o.size(); i++) {
+	        ratings[i] = (Long)o.get(i);
+	     }
+	     double ratingAVG = 0;
+	     for (int i = 0; i < ratings.length; i++) {
+	    	 ratingAVG += ratings[i];
+	     }
+	     ratingAVG /= ratings.length;
+	     System.out.println(ratingAVG + " Stars");
+	     
+	     System.out.println("Price: $" + a.get("Price"));
+	     
+	     JSONArray reviews = (JSONArray) a.get("Comments");
+	     System.out.println("Reviews: "+ reviews.toJSONString());
+	     System.out.println("-------------------\n\n");
 	}
 
 }
