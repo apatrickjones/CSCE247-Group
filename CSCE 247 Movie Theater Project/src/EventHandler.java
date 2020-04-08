@@ -232,23 +232,22 @@ public class EventHandler {
 	}
 	
 	private void viewDetails(JSONObject a) {
-		;
-		System.out.println("Title: " + a.get("Title"));
-		
-		System.out.println("Genre: " + a.get("Genre"));
-		
-		System.out.println("Description : " + a.get("Description"));
-		
-		JSONArray seatMatrix = (JSONArray) a.get("Seating");
-		for(int i = 0; i < seatMatrix.size(); ++i) {
-			Object row = seatMatrix.get(i);
-			System.out.println("ROW "+i+":"+row);
-		}
-				
-		JSONArray o = (JSONArray) a.get("Rating");
-		Long[] ratings = new Long[o.size()];
-	     for (int i = 0; i < o.size(); i++) {
-	        ratings[i] = (Long)o.get(i);
+		 System.out.println("Title: " + a.get("Title"));
+		 
+		 System.out.println("Genre: " + a.get("Genre"));
+		 
+		 System.out.println("Description : " + a.get("Description"));
+		 
+		 JSONArray seatMatrix = (JSONArray) a.get("Seating");
+		 for(int i = 0; i < seatMatrix.size(); ++i) {
+			 Object row = seatMatrix.get(i);
+			 System.out.println("ROW "+i+":"+row);
+		 }
+		 
+		 JSONArray o = (JSONArray) a.get("Rating");
+		 Long[] ratings = new Long[o.size()];
+		 for (int i = 0; i < o.size(); i++) {
+			 ratings[i] = (Long)o.get(i);
 	     }
 	     double ratingAVG = 0;
 	     for (int i = 0; i < ratings.length; i++) {
