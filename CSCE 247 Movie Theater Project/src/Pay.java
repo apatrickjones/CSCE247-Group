@@ -31,6 +31,7 @@ public class Pay {
 	
 	/**
 	 * This method checks to see if user is an account holder, then calls on either UserCheckout() or guestCheckout()
+	 * - Also gives the user the option to register for an account if they don't already have one
 	 * @param An event
 	 */
 	public void checkout(JSONObject a) {
@@ -66,7 +67,6 @@ public class Pay {
 	 */
 	public void userCheckout(JSONObject a, GeneralUser user) {
 		Scanner key = new Scanner(System.in);
-		System.out.println(a.get("Title"));
 		String eventName = (String) a.get("\nTitle");
 		System.out.println("--Showing information--");
 		
@@ -124,7 +124,6 @@ public class Pay {
 	public void guestCheckout(JSONObject a) {
 		
 		Scanner key = new Scanner(System.in);
-		System.out.println(a.get("Title"));
 		String eventName = (String) a.get("Title");
 		System.out.println("\n--Showing information--");
 		
@@ -165,6 +164,7 @@ public class Pay {
 					e.printStackTrace();
 				}
 			} else if (printTicket.equalsIgnoreCase("no")) {
+				System.out.println("***Transaction Complete***\nThank you!\n");
 				break;
 			} else {
 				System.out.println("INVALID INPUT! ");
