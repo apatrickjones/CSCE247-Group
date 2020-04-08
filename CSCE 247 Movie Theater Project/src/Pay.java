@@ -37,21 +37,19 @@ public class Pay {
 	public void checkout(JSONObject a) {
 		Scanner key = new Scanner(System.in);
 		System.out.println("Do you have an account? (Enter yes or no)");
+		AccountHandler accountHandler = AccountHandler.getInstance();
 		String accountResponse = key.nextLine();
 		if(accountResponse.equalsIgnoreCase("yes")) {
-			GeneralUser user = new GeneralUser();
-			user.level = 1;
-			user.generalLogin();
-			if(user.level == 1) {
-				userCheckout(a, user);
+			accountHandler.login();
+			if(accountHandler.level == 1) {
+				userCheckout(a,accountHandler);
 			}
 			
 		} else if(accountResponse.equalsIgnoreCase("no")) {
 			System.out.println("Would you like to register for an account?");
 			accountResponse = key.nextLine();
 			if(accountResponse.equalsIgnoreCase("yes")) {
-				GeneralUser newUser = new GeneralUser();
-				newUser.createNewGeneralAccount();
+				accountHandler.createNewGeneralAccount();
 				System.out.println("New accout registered!");
 				checkout(a);
 			} else if (accountResponse.equalsIgnoreCase("no")) {
@@ -65,7 +63,7 @@ public class Pay {
 	 * This method walks an account holding user through the checkout process
 	 * @param An event, A User 
 	 */
-	public void userCheckout(JSONObject a, GeneralUser user) {
+	public void userCheckout(JSONObject a, AccountHandler ah) {
 		Scanner key = new Scanner(System.in);
 		String eventName = (String) a.get("\nTitle");
 		System.out.println("--Showing information--");
@@ -132,7 +130,7 @@ public class Pay {
 		System.out.println("Theatre: "+showingsInfo.get("Theatre"));
 		System.out.println("Date: "+showingsInfo.get("Month")+" "+showingsInfo.get("Day"));
 		System.out.println("Time: "+showingsInfo.get("Hour")+":"+showingsInfo.get("Minute"));
-		System.out.println("\nAvalibale seating for this showing: (0 = Empty seat, 1 = Reserved seat)");
+		System.out.println("\nAvalibale seating for this showing: (0 = Empty seat, 1 = Reserved seat)\n");
 		
 		//Display matrix of available seating
 		JSONArray seatMatrix = (JSONArray) a.get("Seating");
