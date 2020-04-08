@@ -1,13 +1,11 @@
-/*
- * This class deals with all accounts, removal of accounts, seeing if the username is taken, and if the login is correct
- * @Author: Team ME
+/**
+ * @Author: Andrew Jones, Jake Powers, Team ME
  *
+ * This class deals with all accounts, removal of accounts, seeing if the username is taken, and if the login is correct
  */
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-//import java.io.*;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,12 +13,11 @@ import java.io.IOException;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-//import org.json.simple.parser.ParseException;
 import org.json.simple.parser.ParseException;
 
 public class AccountHandler {
 
-    public static int NUM_ELEMENTS = 13;
+    Scanner in = new Scanner(System.in);
 
     /**
      *  Level 0 = Guest User, Level 1 = General User, Level 2 = Employee User, Level 4 = Admin User
@@ -33,10 +30,7 @@ public class AccountHandler {
      */
     public int level = 0;
     public String reward = "";
-
-    //public String username;
-    //public String password;
-
+    private static AccountHandler accountHandler;
 
     /**
      * HashMaps for username and password storage:
@@ -48,10 +42,107 @@ public class AccountHandler {
     /**
      * Temporary variables for entering their values into Events.json
      */
-    public String title, type, genre, description, showings, theatre, month;
+    public String title, type, genre, description, theatre, month;
     public double day, hour, minute, price;
 
-    Scanner in = new Scanner(System.in);
+    public void createNewEmployeeAccount() {
+        System.out.println("Please create your username:");
+        String username = in.nextLine();
+        if(isUsernameTaken(username) == true) {
+            System.out.println("That username is already taken. Please enter another username:");
+            return;
+        }
+        System.out.println("Please create your password:");
+        String password = in.nextLine();
+        registerUserEmployee(username, password);
+    }
+    public void registerUserEmployee(String username, String password) {
+        employeeMap.put(username, password);
+    }
+
+    public void createNewAdminAccount() {
+        System.out.println("Please create your username:");
+        String username = in.nextLine();
+        if(isUsernameTaken(username) == true) {
+            System.out.println("That username is already taken. Please enter another username:");
+            return;
+        }
+        System.out.println("Please create your password:");
+        String password = in.nextLine();
+        registerUserAdmin(username, password);
+    }
+    public void registerUserAdmin(String username, String password) {
+        adminMap.put(username, password);
+    }
+
+    public void createNewGeneralAccount() {
+        System.out.println("Please create your username:");
+        String username = in.nextLine();
+        if(isUsernameTaken(username) == true) {
+            System.out.println("That username is already taken. Please enter another username:");
+            return;
+        }
+        System.out.println("Please create your password:");
+        String password = in.nextLine();
+        registerUserGeneral(username, password);
+    }
+
+    public void registerUserGeneral(String username, String password) {
+        generalMap.put(username, password);
+    }
+
+    public static AccountHandler getInstance() {
+        if (accountHandler == null) {
+            System.out.println("Creating instance of AccountHandler hashmaps: ");
+            accountHandler = new AccountHandler();
+        }
+        return accountHandler;
+    }
+
+    public void createNewAccount() {
+        System.out.println("Are you making a General, Employee, or Admin account?");
+        String answer = in.nextLine();
+        if(answer.equalsIgnoreCase("general")) {
+            createNewGeneralAccount();
+        }
+        else if(answer.equalsIgnoreCase("employee")) {
+            createNewEmployeeAccount();
+        }
+        else if(answer.equalsIgnoreCase("admin")) {
+            createNewAdminAccount();
+        }
+        else {
+            System.out.println("You have to choose something!");
+            return;
+        }
+    }
+
+    public void login() {
+        System.out.println("What kind of account are you logging into? General, Employee or Admin");
+        String answer = in.nextLine();
+        if(answer.equalsIgnoreCase("general")) {
+            level = 1;
+        }
+        else if(answer.equalsIgnoreCase("employee")) {
+            level = 2;
+        }
+        else if(answer.equalsIgnoreCase("admin")) {
+            level = 3;
+        }
+        else {
+            System.out.println("Invalid input");
+            return;
+        }
+        System.out.println("Please enter your username and password:");
+        String username = in.nextLine();
+        String password = in.nextLine();
+        if(isLoginCorrect(username, password) != true) {
+            System.out.println("The username or password is incorrect");
+            level = 0;
+            return;
+        }
+        System.out.println("Login Successful");
+    }
 
     /**
      * Removes the username and password from the hashmap if a user wishes to delete his/her account
@@ -243,7 +334,7 @@ public class AccountHandler {
             		
             }
             seats.toJSONString();
-            event.put("Seating", seats);
+            event.put("seating", seats);
 
             System.out.println("Enter number of showings to add");
             int counter = in.nextInt();
@@ -295,12 +386,11 @@ public class AccountHandler {
             int countC = in.nextInt();
             JSONArray comments = new JSONArray();
             in.nextLine();
-            System.out.println(countC);
-            for (int i = 1; i < countC+1; i++) {
+            for (int i = 1; i < countR+1; i++) {
             	System.out.println("Enter Comment " + i);
             	comments.add(in.nextLine());
             }
-            event.put("Comments", comments);
+            event.put("comments", comments);
 
             FileReader fileR = new FileReader("Events.json");
             JSONParser parser = new JSONParser();
