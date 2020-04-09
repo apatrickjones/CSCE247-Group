@@ -5,6 +5,7 @@
  */
 
 import java.io.*;
+import java.security.AccessControlContext;
 import java.util.Scanner;
 
 import org.json.simple.JSONArray;
@@ -37,19 +38,19 @@ public class Pay {
 	public void checkout(JSONObject a) {
 		Scanner key = new Scanner(System.in);
 		System.out.println("Do you have an account? (Enter yes or no)");
-		AccountHandler accountHandler = AccountHandler.getInstance();
 		String accountResponse = key.nextLine();
 		if(accountResponse.equalsIgnoreCase("yes")) {
-			accountHandler.login();
-			if(accountHandler.level == 1) {
-				userCheckout(a,accountHandler);
+			AccountHandler accountHandler = AccountHandler.getInstance();
+			if(accountHandler.login() != false) {
+				userCheckout(a, accountHandler);
 			}
 			
 		} else if(accountResponse.equalsIgnoreCase("no")) {
 			System.out.println("Would you like to register for an account?");
 			accountResponse = key.nextLine();
 			if(accountResponse.equalsIgnoreCase("yes")) {
-				accountHandler.createNewAccount();
+				AccountHandler newUser = AccountHandler.getInstance();
+				newUser.createNewAccount();
 				System.out.println("New accout registered!");
 				checkout(a);
 			} else if (accountResponse.equalsIgnoreCase("no")) {
@@ -63,7 +64,7 @@ public class Pay {
 	 * This method walks an account holding user through the checkout process
 	 * @param An event, A User 
 	 */
-	public void userCheckout(JSONObject a, AccountHandler ah) {
+	public void userCheckout(JSONObject a, AccountHandler user) {
 		Scanner key = new Scanner(System.in);
 		String eventName = (String) a.get("\nTitle");
 		System.out.println("--Showing information--");
@@ -130,7 +131,7 @@ public class Pay {
 		System.out.println("Theatre: "+showingsInfo.get("Theatre"));
 		System.out.println("Date: "+showingsInfo.get("Month")+" "+showingsInfo.get("Day"));
 		System.out.println("Time: "+showingsInfo.get("Hour")+":"+showingsInfo.get("Minute"));
-		System.out.println("\nAvalibale seating for this showing: (0 = Empty seat, 1 = Reserved seat)\n");
+		System.out.println("\nAvalibale seating for this showing: (0 = Empty seat, 1 = Reserved seat)");
 		
 		//Display matrix of available seating
 		JSONArray seatMatrix = (JSONArray) a.get("Seating");

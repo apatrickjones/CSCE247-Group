@@ -1,5 +1,5 @@
 /**
- * @Author: Andrew Jones, Jake Powers, Team ME
+ * @Author: Andrew Jones, Team ME
  *
  * This class deals with all accounts, removal of accounts, seeing if the username is taken, and if the login is correct
  */
@@ -11,7 +11,7 @@ public class AccountHandler {
 
     /*
      * We couldn't figure out how to get the hashmaps to work with seperated employee,
-     * admin, and general user classes, and the singelton pattern on the account class
+     * admin, and general user classes, and the singleton pattern on the account class
      * wasn't properly creating an instance, so we had to combine all the code into
      * this one class. So anywhere you see multiple if, else if statements, they were
      * originally 3 seperated classes.
@@ -39,11 +39,20 @@ public class AccountHandler {
     public Map<String, String> adminMap = new HashMap<>();
     public Map<String, String> generalMap = new HashMap<>();
 
-
+    /**
+     * Getter for level of priority
+     *
+     * @return level of priority
+     */
     public int getLevel() {
         return this.level;
     }
 
+    /**
+     * Setter for level of priority
+     *
+     * @param level is changed to param level
+     */
     public void setLevel(int level) {
         this.level = level;
     }
@@ -96,7 +105,7 @@ public class AccountHandler {
      *
      * @return whether or not the login was successful
      */
-    public void login() {
+    public boolean login() {
         System.out.println("What kind of account are you logging into? General, Employee or Admin");
         String answer = in.nextLine();
         if(answer.equalsIgnoreCase("general")) {
@@ -110,7 +119,7 @@ public class AccountHandler {
         }
         else {
             System.out.println("Invalid input");
-            return;
+            return false;
         }
         System.out.println("Please enter your username and password:");
         String username = in.nextLine();
@@ -118,9 +127,10 @@ public class AccountHandler {
         if(isLoginCorrect(username, password) != true) {
             System.out.println("The username or password is incorrect");
             level = 0;
-            return;
+            return false;
         }
         System.out.println("Login Successful");
+        return true;
     }
 
     /**
