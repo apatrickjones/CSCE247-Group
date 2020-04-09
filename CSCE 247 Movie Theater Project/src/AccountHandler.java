@@ -98,6 +98,7 @@ public class AccountHandler {
             System.out.println("You have to choose something!");
             return;
         }
+        System.out.println("You successfully created a new account");
     }
 
     /**

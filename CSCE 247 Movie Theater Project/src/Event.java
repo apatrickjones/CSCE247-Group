@@ -176,100 +176,100 @@ public class Event {
         }
     }
 
-    
+
     public void editComment() {
-    	System.out.println("Enter the name of the event you wish to comment on.");
-    	String eventName = in.nextLine();
-    	
-    	try {
-			FileReader fileR = new FileReader("Events.json");
-			JSONParser parser = new JSONParser();
-			Object obj = parser.parse(fileR);
-			JSONArray JArr = (JSONArray) obj;
-			JSONObject currObj = findEvent(eventName,JArr);
-			if (!currObj.equals(null)) {
-				System.out.println("Enter your comment.");
-				String comment = in.nextLine();
-				JSONArray commentObject = (JSONArray) currObj.get("Comments");
-				commentObject.add(comment);
-				
-				JArr.remove(currObj);
-				
-				currObj.replace("Comments", commentObject);
-				
-				JArr.add(currObj);
-				
-				FileWriter fileW = new FileWriter("Events.json");
-				fileW.write(JArr.toJSONString());
-				fileW.flush();
-				fileW.close();
-				System.out.println("Comment added!");
-			} else {
-				System.out.println("That event is not in the database. Contact an Employee to have it added.");
-			}
-			fileR.close();
-			
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        System.out.println("Enter the name of the event you wish to comment on.");
+        String eventName = in.nextLine();
+
+        try {
+            FileReader fileR = new FileReader("Events.json");
+            JSONParser parser = new JSONParser();
+            Object obj = parser.parse(fileR);
+            JSONArray JArr = (JSONArray) obj;
+            JSONObject currObj = findEvent(eventName,JArr);
+            if (!currObj.equals(null)) {
+                System.out.println("Enter your comment.");
+                String comment = in.nextLine();
+                JSONArray commentObject = (JSONArray) currObj.get("Comments");
+                commentObject.add(comment);
+
+                JArr.remove(currObj);
+
+                currObj.replace("Comments", commentObject);
+
+                JArr.add(currObj);
+
+                FileWriter fileW = new FileWriter("Events.json");
+                fileW.write(JArr.toJSONString());
+                fileW.flush();
+                fileW.close();
+                System.out.println("Comment added!");
+            } else {
+                System.out.println("That event is not in the database. Contact an Employee to have it added.");
+            }
+            fileR.close();
+
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
-    
+
     public void editRatings() {
-    	System.out.println("Enter the name of the event you wish to add a rating to.");
-    	String eventName = in.nextLine();
-    	
-    	try {
-			FileReader fileR = new FileReader("Events.json");
-			JSONParser parser = new JSONParser();
-			Object obj = parser.parse(fileR);
-			JSONArray JArr = (JSONArray) obj;
-			JSONObject currObj = findEvent(eventName,JArr);
-			if (!currObj.equals(null)) {
-				System.out.println("Enter your Rating (1-5).");
-				int review = in.nextInt();
-				if (review < 1 || review > 5) {
-					System.out.println("Invalid value for reviews, try again.");
-					return;
-				}
-				JSONArray reviewObject = (JSONArray) currObj.get("Rating");
-				reviewObject.add(review);
-				
-				JArr.remove(currObj);
-				
-				currObj.replace("Rating", reviewObject);
-				JArr.remove(eventName);
-				JArr.add(currObj);
-				
-				FileWriter fileW = new FileWriter("Events.json");
-				fileW.write(JArr.toJSONString());
-				fileW.flush();
-				fileW.close();
-				System.out.println("Rating added!");
-			} else {
-				System.out.println("That event is not in the database. Contact an Employee to have it added.");
-			}
-			fileR.close();
-			
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        System.out.println("Enter the name of the event you wish to add a rating to.");
+        String eventName = in.nextLine();
+
+        try {
+            FileReader fileR = new FileReader("Events.json");
+            JSONParser parser = new JSONParser();
+            Object obj = parser.parse(fileR);
+            JSONArray JArr = (JSONArray) obj;
+            JSONObject currObj = findEvent(eventName,JArr);
+            if (!currObj.equals(null)) {
+                System.out.println("Enter your Rating (1-5).");
+                int review = in.nextInt();
+                if (review < 1 || review > 5) {
+                    System.out.println("Invalid value for reviews, try again.");
+                    return;
+                }
+                JSONArray reviewObject = (JSONArray) currObj.get("Rating");
+                reviewObject.add(review);
+
+                JArr.remove(currObj);
+
+                currObj.replace("Rating", reviewObject);
+                JArr.remove(eventName);
+                JArr.add(currObj);
+
+                FileWriter fileW = new FileWriter("Events.json");
+                fileW.write(JArr.toJSONString());
+                fileW.flush();
+                fileW.close();
+                System.out.println("Rating added!");
+            } else {
+                System.out.println("That event is not in the database. Contact an Employee to have it added.");
+            }
+            fileR.close();
+
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
-    
-    
+
+
     /*public void editEvent() {
     	System.out.println("Enter the name of the event you wish to edit.");
     	String eventName = in.nextLine();
@@ -281,21 +281,21 @@ public class Event {
 			Object obj = parser.parse(fileR);
 			JSONArray JArr = (JSONArray) obj;
 			Iterator iterator = JArr.iterator();
-			
+
 			JSONObject editing = findEvent(eventName, JArr);
 			if (editing.equals(null)) {
 				System.out.println("This Event does not exist. Try another event.");
 				return;
 			}
 			JSONObject key = (JSONObject) editing.get(index);
-			
+
 			System.out.println("Enter 1 to replace the data, Enter 2 to add to the data.");
 			switch(in.nextInt()) {
 			case(1):
-				JSONObject 
+				JSONObject
 			}
-				
-			
+
+
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -306,19 +306,19 @@ public class Event {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        
-        
+
+
     }*/
-    
+
     private JSONObject findEvent(String selection, JSONArray JArr) {
-		Iterator<JSONObject> iterator = JArr.iterator();
-			while(iterator.hasNext()) {
-				JSONObject buffer = iterator.next();
-				if (buffer.containsValue(selection)) {
-					return buffer;
-				}
-			}
-		return null;
-	}
+        Iterator<JSONObject> iterator = JArr.iterator();
+        while(iterator.hasNext()) {
+            JSONObject buffer = iterator.next();
+            if (buffer.containsValue(selection)) {
+                return buffer;
+            }
+        }
+        return null;
+    }
 
 }
