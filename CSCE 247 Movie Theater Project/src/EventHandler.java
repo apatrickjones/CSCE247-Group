@@ -148,10 +148,21 @@ public class EventHandler {
 					switch(userCommand) {
 					case(0):
 						//Add New Event
-						AccountHandler acc = new AccountHandler();
-						acc.addEvent();
+						Event events = new Event();
+						events.addEvent();
 						break;
+					case(1):
+						//Add a Review
+						Event commentEvent = new Event();
+						commentEvent.editComment();
+						break;
+						
 					case(2):
+						//Add a Rating
+						Event ratingEvent = new Event();
+						ratingEvent.editRatings();
+						break;
+					case(3):
 						System.out.println("Returning to Main Menu\n\n");
 						//Back to Main Menu
 						break;
@@ -184,7 +195,7 @@ public class EventHandler {
 			String[] eventType = {"View All Events", "View Movies", "View Plays", "View Concerts", "View Details about an Event","Exit to Main Menu"};
 			menuArray = eventType;
 		} else if(menuType.equalsIgnoreCase("account")) {
-			String[] accountOptions = {"Add New Event", "Exit to Main Menu"};
+			String[] accountOptions = {"Add New Event", "Add a Review", "Add a Rating", "Exit to Main Menu"};
 			menuArray = accountOptions;
 		}
 		// ^ use this format to create diffrent sub-menues to be selected
@@ -253,9 +264,9 @@ public class EventHandler {
 		 System.out.println("Description : " + a.get("Description"));
 		 
 		 JSONArray seatMatrix = (JSONArray) a.get("Seating");
-		 for(int i = 1; i < seatMatrix.size()+1; ++i) {
+		 for(int i = 0; i < seatMatrix.size(); ++i) {
 			 Object row = seatMatrix.get(i);
-			 System.out.println("ROW "+i+":"+row);
+			 System.out.println("ROW "+(i+1)+":"+row);
 		 }
 		 
 		 JSONArray o = (JSONArray) a.get("Rating");

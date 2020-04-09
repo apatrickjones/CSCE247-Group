@@ -49,7 +49,7 @@ public class Pay {
 			System.out.println("Would you like to register for an account?");
 			accountResponse = key.nextLine();
 			if(accountResponse.equalsIgnoreCase("yes")) {
-				accountHandler.createNewGeneralAccount();
+				accountHandler.createNewAccount();
 				System.out.println("New accout registered!");
 				checkout(a);
 			} else if (accountResponse.equalsIgnoreCase("no")) {
