@@ -25,7 +25,7 @@ public class EventHandler {
 	 * This method is allowing the user to choose different commands
 	 * @param menuType can be multiple different options for the user to choose from
 	 */
-	public void run(String menuType) {
+	public boolean run(String menuType) {
 		JSONParser parser = new JSONParser();
 		try (FileReader file = new FileReader("Events.json")) {
 
@@ -69,7 +69,7 @@ public class EventHandler {
 							break;
 						case(4):
 							//Back to Main Menu
-							break;
+							return true;
 					}
 				} else if (menuType.equalsIgnoreCase("displayEvents")) {
 					Iterator<JSONObject> iterator = JArr.iterator();
@@ -142,7 +142,7 @@ public class EventHandler {
 						case(5):
 							System.out.println("Returning to Main Menu\n\n");
 							//Back to Main Menu
-							break;
+							return true;
 					}
 				} else if (menuType.equalsIgnoreCase("account")) {
 					switch(userCommand) {
@@ -170,7 +170,7 @@ public class EventHandler {
 						case(4):
 							System.out.println("Returning to Main Menu\n\n");
 							//Back to Main Menu
-							break;
+							return true;
 					}
 				} //If you want to add a new sub-menu, add the if and switch statements here
 
@@ -181,6 +181,7 @@ public class EventHandler {
 			System.out.println(e);
 			System.out.println("We are sorry, an error has occured.\nReturning to Main Menu.");
 		}
+		return false;
 	}
 
 	/*
@@ -223,7 +224,7 @@ public class EventHandler {
 	 * This method gets the users command that they have inputted
 	 * @pararm numCommands is the command that the user has inputted
 	 */
-	private int getUserCommand(int numCommands) {
+	public int getUserCommand(int numCommands) {
 		System.out.print("What would you like to do?: ");
 
 		String input = scanner.nextLine();
@@ -234,7 +235,7 @@ public class EventHandler {
 		return -1;
 	}
 
-	private JSONObject findEvent(String selection, JSONArray JArr) {
+	public JSONObject findEvent(String selection, JSONArray JArr) {
 		Iterator<JSONObject> iterator = JArr.iterator();
 		while(iterator.hasNext()) {
 			JSONObject buffer = iterator.next();
@@ -245,7 +246,7 @@ public class EventHandler {
 		return null;
 	}
 
-	private void parseJSON(JSONObject a) {
+	public boolean parseJSON(JSONObject a) {
 		System.out.println(a.get("Title"));
 		System.out.println(a.get("Description"));
 		JSONArray o = (JSONArray) a.get("Rating");
@@ -259,9 +260,10 @@ public class EventHandler {
 		}
 		ratingAVG /= ratings.length;
 		System.out.println(ratingAVG + " Stars");
+		return true;
 	}
 
-	private void viewDetails(JSONObject a) {
+	public boolean viewDetails(JSONObject a) {
 		System.out.println("Title: " + a.get("Title"));
 
 		System.out.println("Genre: " + a.get("Genre"));
@@ -291,6 +293,7 @@ public class EventHandler {
 		JSONArray reviews = (JSONArray) a.get("Comments");
 		System.out.println("Reviews: "+ reviews.toJSONString());
 		System.out.println("-------------------\n\n");
+		return true;
 	}
 
 }
