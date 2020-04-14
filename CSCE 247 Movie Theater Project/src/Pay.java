@@ -183,7 +183,7 @@ public class Pay {
 		String showingString = "Theatre: "+showingsInfo.get("Theatre")+"\nDate: "+showingsInfo.get("Month")+" "+showingsInfo.get("Day")+"\nRuntime: "+showingsInfo.get("Hour")+":"+showingsInfo.get("Minute");
 		System.out.println(showingString);
 		paymentInformation = "**** "+paymentInformation.substring(paymentInformation.length()-4,paymentInformation.length());
-		String ticketContent = ("-------TICKET-------\nEvent: "+event+"\nShowing Information: \n "+showingString+"\nSeat(s): NULL"+"\nPayment Information: "+paymentInformation+"\n--------------------\n");
+		String ticketContent = ("-------TICKET-------\nEvent: "+event+"\nShowing Information: \n"+showingString+"\nSeat(s): NULL"+"\nPayment Information: "+paymentInformation+"\n--------------------\n");
 		System.out.println(ticketContent);
 		event = event.replace(" ", "_");
 		System.out.println("EVENT RENAMED SAVED");
