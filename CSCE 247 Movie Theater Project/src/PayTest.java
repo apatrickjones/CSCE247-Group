@@ -33,7 +33,7 @@ class PayTest {
 	@Test
 	void testCheckout() throws IOException, ParseException {
 		JSONParser parser = new JSONParser();
-		FileReader file = new FileReader("/Users/laddjackson/eclipse-workspace/MovieTheaterApplication/CSCE 247 Movie Theater Project/Events.json");
+		FileReader file = new FileReader("Events.json");
 		
 		Object obj = parser.parse(file);
 		JSONArray JArr = (JSONArray) obj;
@@ -46,13 +46,15 @@ class PayTest {
 
 	@Test
 	void testUserCheckout() {
+		
+		//TODO
 		fail("not yet implement");
 	}
 
 	@Test
 	void testGuestCheckout() throws IOException, ParseException {
 		JSONParser parser = new JSONParser();
-		FileReader file = new FileReader("/Users/laddjackson/eclipse-workspace/MovieTheaterApplication/CSCE 247 Movie Theater Project/Events.json");
+		FileReader file = new FileReader("Events.json");
 		
 		Object obj = parser.parse(file);
 		JSONArray JArr = (JSONArray) obj;
@@ -67,7 +69,7 @@ class PayTest {
 	@Test
 	void testPrintTicket() throws IOException, ParseException {
 		JSONParser parser = new JSONParser();
-		FileReader file = new FileReader("/Users/laddjackson/eclipse-workspace/MovieTheaterApplication/CSCE 247 Movie Theater Project/Events.json");
+		FileReader file = new FileReader("Events.json");
 		
 		Object obj = parser.parse(file);
 		JSONArray JArr = (JSONArray) obj;
