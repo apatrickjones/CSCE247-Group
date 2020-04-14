@@ -66,24 +66,13 @@ public class Pay {
 	 */
 	public void userCheckout(JSONObject a, AccountHandler user) {
 		Scanner key = new Scanner(System.in);
-		String eventName = (String) a.get("\nTitle");
-		System.out.println("--Showing information--");
-		
-		System.out.println("Event Name: "+eventName);
-		JSONObject showingsInfo = (JSONObject) a.get("Showings");
-		System.out.println("Theatre: "+showingsInfo.get("Theatre"));
-		System.out.println("Date: "+showingsInfo.get("Month")+" "+showingsInfo.get("Day"));
-		System.out.println("Time: "+showingsInfo.get("Hour")+":"+showingsInfo.get("Minute"));
-		System.out.println("\nAvaliable seating for this showing: (0 = Empty seat, 1 = Reserved seat)");
+		String eventName = (String) a.get("Title");
+	
+		//Display showing information
+		System.out.print(showingInformation(a));
 		
 		//Display matrix of available seating
-		JSONArray seatMatrix = (JSONArray) a.get("Seating");
-		for(int i = 0; i < seatMatrix.size(); ++i) {
-			Object row = seatMatrix.get(i);
-			System.out.println("ROW "+i+":"+row);
-		}
-		System.out.println("Enter seat selection (Example input: 3-1, where 3 is the row and 1 is the first seat from left to right): ");
-		String seatChoice = key.nextLine();
+		String seatChoice = seatSelection(a);
 		
 		System.out.println("Retreving account payment information...");
 		//Retrieve User's paymentInformation
@@ -116,6 +105,7 @@ public class Pay {
 		}
 		
 	}
+	
 	/*
 	* This method walks a guest user through the checkout process
 	* @param personal information is filled out and stored for the guest user
@@ -124,25 +114,13 @@ public class Pay {
 		
 		Scanner key = new Scanner(System.in);
 		String eventName = (String) a.get("Title");
-		System.out.println("\n--Showing information--");
-		
-		System.out.println("Event Name: "+eventName);
-		JSONObject showingsInfo = (JSONObject) a.get("Showings");
-		System.out.println("Theatre: "+showingsInfo.get("Theatre"));
-		System.out.println("Date: "+showingsInfo.get("Month")+" "+showingsInfo.get("Day"));
-		System.out.println("Time: "+showingsInfo.get("Hour")+":"+showingsInfo.get("Minute"));
-		System.out.println("\nAvalibale seating for this showing: (0 = Empty seat, 1 = Reserved seat)");
+
+		//Display showing information
+		System.out.print(showingInformation(a));
 		
 		//Display matrix of available seating
-		JSONArray seatMatrix = (JSONArray) a.get("Seating");
-		for(int i = 0; i < seatMatrix.size(); ++i) {
-			Object row = seatMatrix.get(i);
-			System.out.println("ROW "+i+":"+row);
-		}
-		System.out.println("Enter seat selection (Example input: 3-1, where 3 is the row and 1 is the first seat from left to right): ");
-		String seatChoice = key.nextLine();
+		String seatChoice = seatSelection(a);
 		
-
 		//Now since it is a guest transaction, I request payment info
 		System.out.println("Please enter payment information: ");
 		String paymentInformation = key.nextLine();
@@ -171,9 +149,9 @@ public class Pay {
 			}
 		}
 	}
-
+	
 	/*
-	* This method deals with priting out the ticket if the user selects to print the ticket out
+	* This method deals with printing out the ticket if the user selects to print the ticket out
 	* @param An event, string paymentInformation
 	*/
 	public void printTicket(JSONObject a, String paymentInformation) throws IOException {
@@ -191,5 +169,38 @@ public class Pay {
 		writer.write(ticketContent);
 		writer.close();
 		System.out.println("\nTICKET HAS BEEN SAVED!\nFile Name: "+event+"_Ticket.txt");
+	}
+	
+	/**
+	 * This method displays the showing information for the param event
+	 * @param JSONObject Event
+	 * @return a string of the showing information
+	 */
+	public String showingInformation(JSONObject a) {
+		String eventName = (String) a.get("Title");
+		JSONObject showingsInfo = (JSONObject) a.get("Showings");
+		
+		return "\n--Showing information--"+"\nEvent Name: "+eventName
+				+"\nTheatre: "+showingsInfo.get("Theatre")+"\nDate: "+showingsInfo.get("Month")+" "+showingsInfo.get("Day")
+				+"\nTime: "+showingsInfo.get("Hour")+":"+showingsInfo.get("Minute")+"\n";
+	}
+	
+	/**
+	 * This method displays the avaliable seating for the param event.
+	 * @param JSONObject Event
+	 * @return The users desired seats for the event
+	 */
+	public String seatSelection(JSONObject a) {
+		Scanner key = new Scanner(System.in);
+		
+		System.out.println("\nAvailable seating for this showing: (0 = Empty seat, 1 = Reserved seat)");
+		JSONArray seatMatrix = (JSONArray) a.get("Seating");
+		for(int i = 0; i < seatMatrix.size(); ++i) {
+			Object row = seatMatrix.get(i);
+			System.out.println("ROW "+i+":"+row);
+		}
+		System.out.println("Enter seat selection (Example input: 3-1, where 3 is the row and 1 is the first seat from left to right): ");
+		
+		return key.nextLine();
 	}
 }

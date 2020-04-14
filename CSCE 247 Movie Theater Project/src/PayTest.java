@@ -33,7 +33,7 @@ class PayTest {
 	@Test
 	void testCheckout() throws IOException, ParseException {
 		JSONParser parser = new JSONParser();
-		FileReader file = new FileReader("Events.json");
+		FileReader file = new FileReader("/Users/laddjackson/eclipse-workspace/MovieTheaterApplication/CSCE 247 Movie Theater Project/Events.json");
 		
 		Object obj = parser.parse(file);
 		JSONArray JArr = (JSONArray) obj;
@@ -54,7 +54,7 @@ class PayTest {
 	@Test
 	void testGuestCheckout() throws IOException, ParseException {
 		JSONParser parser = new JSONParser();
-		FileReader file = new FileReader("Events.json");
+		FileReader file = new FileReader("/Users/laddjackson/eclipse-workspace/MovieTheaterApplication/CSCE 247 Movie Theater Project/Events.json");
 		
 		Object obj = parser.parse(file);
 		JSONArray JArr = (JSONArray) obj;
@@ -65,11 +65,40 @@ class PayTest {
 		Pay p1 = new Pay();
 		p1.guestCheckout(jsonObj);
 	}
+	
+	@Test
+	void testShowingInformation() throws IOException, ParseException {
+		JSONParser parser = new JSONParser();
+		FileReader file = new FileReader("/Users/laddjackson/eclipse-workspace/MovieTheaterApplication/CSCE 247 Movie Theater Project/Events.json");
+		
+		Object obj = parser.parse(file);
+		JSONArray JArr = (JSONArray) obj;
+		
+		Iterator<JSONObject> iterator = JArr.iterator();
+		JSONObject jsonObj = iterator.next();
+		Pay p1 = new Pay();
+		assertNotNull(p1.showingInformation(jsonObj));
+	}
+	
+	@Test 
+	void testSeatSelection() throws IOException, ParseException {
+		JSONParser parser = new JSONParser();
+		FileReader file = new FileReader("/Users/laddjackson/eclipse-workspace/MovieTheaterApplication/CSCE 247 Movie Theater Project/Events.json");
+		
+		Object obj = parser.parse(file);
+		JSONArray JArr = (JSONArray) obj;
+		
+		Iterator<JSONObject> iterator = JArr.iterator();
+		JSONObject jsonObj = iterator.next();
+		System.out.println(jsonObj);
+		Pay p1 = new Pay();
+		assertNotNull(p1.seatSelection(jsonObj));
+	}
 
 	@Test
 	void testPrintTicket() throws IOException, ParseException {
 		JSONParser parser = new JSONParser();
-		FileReader file = new FileReader("Events.json");
+		FileReader file = new FileReader("/Users/laddjackson/eclipse-workspace/MovieTheaterApplication/CSCE 247 Movie Theater Project/Events.json");
 		
 		Object obj = parser.parse(file);
 		JSONArray JArr = (JSONArray) obj;
