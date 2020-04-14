@@ -37,13 +37,13 @@
 			[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 			[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 		],
-		"Showings": [{
+		"Showings": {
 			"Theatre": "Regal Columbiana",
 			"Month": "April",
 			"Day": 12,
 			"Hour": 10,
 			"Minute": 30
-		}],
+		},
 		"Rating": [5, 2, 4, 4],
 		"Price": 11.00,
 		"Comments": ["A Lifelong Classic.", "The Kids Loved It!"]
@@ -65,13 +65,13 @@
 			[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 			[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 		],
-		"Showings": [{
+		"Showings": {
 			"Theatre": "Koger Center for the Arts",
 			"Month": "Febuary",
 			"Day": 12,
 			"Hour": 19,
 			"Minute": 00
-		}],
+		},
 		"Rating": [5, 5, 4, 4],
 		"Price": 64.00,
 		"Comments": ["This musical was so much better than I thought it was going to be.", "Packed with wit, storming songs and beautiful costumes."]
