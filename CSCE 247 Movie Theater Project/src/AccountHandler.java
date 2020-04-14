@@ -29,7 +29,6 @@ public class AccountHandler {
      *
      */
     public int level = 0;
-    public String reward = "";
     private static AccountHandler accountHandler;
 
     /**
@@ -38,24 +37,6 @@ public class AccountHandler {
     public Map<String, String> employeeMap = new HashMap<>();
     public Map<String, String> adminMap = new HashMap<>();
     public Map<String, String> generalMap = new HashMap<>();
-
-    /**
-     * Getter for level of priority
-     *
-     * @return level of priority
-     */
-    public int getLevel() {
-        return this.level;
-    }
-
-    /**
-     * Setter for level of priority
-     *
-     * @param level is changed to param level
-     */
-    public void setLevel(int level) {
-        this.level = level;
-    }
 
     /**
      * Instance class for AccountHandler, Singleton design pattern
@@ -79,19 +60,29 @@ public class AccountHandler {
         String answer = in.nextLine();
         System.out.println("Please create your username:");
         String username = in.nextLine();
-        if(isUsernameTaken(username) == true) {
+        if (isUsernameTaken(username) == true) {
             System.out.println("That username is already taken. Please enter another username:");
             return;
         }
         System.out.println("Please create your password:");
         String password = in.nextLine();
-        if(answer.equalsIgnoreCase("general")) {
+        hashAccount(answer, username, password);
+    }
+
+    public void hashAccount(String account, String username, String password) {
+        if(username == null || password == null) {
+            return;
+        }
+        if(account.equalsIgnoreCase("general")) {
+            level = 1;
             generalMap.put(username, password);
         }
-        else if(answer.equalsIgnoreCase("employee")) {
+        else if(account.equalsIgnoreCase("employee")) {
+            level = 2;
             employeeMap.put(username, password);
         }
-        else if(answer.equalsIgnoreCase("admin")) {
+        else if(account.equalsIgnoreCase("admin")) {
+            level = 3;
             adminMap.put(username, password);
         }
         else {
@@ -108,30 +99,33 @@ public class AccountHandler {
      */
     public boolean login() {
         System.out.println("What kind of account are you logging into? General, Employee or Admin");
-        String answer = in.nextLine();
-        if(answer.equalsIgnoreCase("general")) {
+        String account = in.nextLine();
+        if (account.equalsIgnoreCase("general")) {
             level = 1;
-        }
-        else if(answer.equalsIgnoreCase("employee")) {
+        } else if (account.equalsIgnoreCase("employee")) {
             level = 2;
-        }
-        else if(answer.equalsIgnoreCase("admin")) {
+        } else if (account.equalsIgnoreCase("admin")) {
             level = 3;
-        }
-        else {
+        } else {
             System.out.println("Invalid input");
             return false;
         }
         System.out.println("Please enter your username and password:");
         String username = in.nextLine();
         String password = in.nextLine();
-        if(isLoginCorrect(username, password) != true) {
-            System.out.println("The username or password is incorrect");
-            level = 0;
-            return false;
+        if(checkInfo(username, password) == true)
+            return true;
+        return false;
+    }
+
+    public boolean checkInfo(String username, String password) {
+        if(isLoginCorrect(username, password) == true) {
+            System.out.println("Login Successful");
+            return true;
         }
-        System.out.println("Login Successful");
-        return true;
+        System.out.println("The username or password is incorrect");
+        level = 0;
+        return false;
     }
 
     /**
@@ -140,31 +134,38 @@ public class AccountHandler {
      * @returns which account has been successfully deleted
      */
     public void removeAccount() {
-        if(level == 0) {
+        if (level == 0) {
             System.out.println("Sorry, you must be logged in to delete an account");
             return;
         }
         System.out.println("Please enter the username and password of the account you wish to delete");
         String username = in.nextLine();
         String password = in.nextLine();
-        if(isLoginCorrect(username, password) != true) {
+        if (isLoginCorrect(username, password) != true) {
             System.out.println("Incorrect Username or Password");
             return;
         }
         System.out.println("Are you sure you wish to delete this account?");
         String answer = in.nextLine();
-        if(answer == "yes" && level == 3) {
+        if(answer.equalsIgnoreCase("yes"))
+            delete(username, password);
+        else
+            System.out.println("Account was not deleted.");
+    }
+
+    public void delete(String username, String password) {
+        if(level == 3) {
             adminMap.remove(username);
             adminMap.remove(password);
             System.out.println("Admin Account successfully deleted");
         }
-        else if(answer == "yes" && level == 2) {
+        else if(level == 2) {
             employeeMap.remove(username);
             employeeMap.remove(password);
             System.out.println("Employee Account successfully deleted");
             return;
         }
-        else if(answer == "yes" && level == 1) {
+        else if(level == 1) {
             generalMap.remove(username);
             generalMap.remove(password);
             System.out.println("General Account successfully deleted");
@@ -182,6 +183,8 @@ public class AccountHandler {
      * @return false if the username key has not been taken
      */
     public boolean isUsernameTaken(String username) {
+        if(username == null)
+            return false;
         if(adminMap.containsKey(username) == true)
             return adminMap.containsKey(username);
         else if(employeeMap.containsKey(username) == true)
@@ -227,34 +230,16 @@ public class AccountHandler {
         return false;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public String getRewards() {
-        return reward;
+    /**
+     * Testing method that returns whether or not the account exists
+     * @param username checks to see if the username exists
+     * @param password checks to see if the account exists
+     * @return true if account exists, false if account doesn't
+     */
+    public boolean checkMap(String username, String password) {
+        if(checkInfo(username, password) != false) {
+            return true;
+        }
+        return false;
     }
-
-    public void setRewards(String reward) {
-        this.reward = reward;
-    }
-
 }
