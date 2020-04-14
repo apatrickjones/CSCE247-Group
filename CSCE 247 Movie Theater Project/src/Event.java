@@ -21,16 +21,17 @@ public class Event {
      */
     // Needs to be able to edit JSON,
     // Opens the index of deleted event to be overwritten
-    public void removeEvent() {
+    
+    /*public void removeEvent() {
         JSONArray jsonArray = new JSONArray();
         System.out.println("Enter index of object to delete");
         int object = in.nextInt();
         System.out.println(jsonArray);
         jsonArray.remove(object);
         System.out.println("After deleting ::"+jsonArray);
-    }
+    }*/
 
-    public void addEvent () {
+    public JSONArray addEvent() {
         JSONObject event = new JSONObject();
 		JSONObject showing = new JSONObject();
 
@@ -140,10 +141,11 @@ public class Event {
 
 		JArr.add(event);
 		writeJSONFile(JArr);
+		return JArr;
     }
 
 
-    public void editComment() {
+    public JSONArray editComment() {
         System.out.println("Enter the name of the event you wish to comment on.");
         String eventName = in.nextLine();
 
@@ -165,9 +167,10 @@ public class Event {
 		} else {
 		    System.out.println("That event is not in the database. Contact an Employee to have it added.");
 		}
+		return JArr;
     }
 
-    public void editRatings() {
+    public JSONArray editRatings() {
         System.out.println("Enter the name of the event you wish to add a rating to.");
         String eventName = in.nextLine();
 
@@ -182,7 +185,7 @@ public class Event {
                 int review = in.nextInt();
                 if (review < 1 || review > 5) {
                     System.out.println("Invalid value for reviews, try again.");
-                    return;
+                    return null;
                 }
                 JSONArray reviewObject = (JSONArray) currObj.get("Rating");
                 reviewObject.add(review);
@@ -202,6 +205,7 @@ public class Event {
                 System.out.println("That event is not in the database. Contact an Employee to have it added.");
             }
             fileR.close();
+            return JArr;
 
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
@@ -213,6 +217,7 @@ public class Event {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+		return null;
     }
 
     private JSONObject findEvent(String selection, JSONArray JArr) {
