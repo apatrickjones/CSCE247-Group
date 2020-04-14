@@ -6,7 +6,7 @@
 import java.util.Scanner;
 public class Refund {
 
-  public String paymentInformation;
+  public String paymentType;
   public int cardNumber;
   public int cvv;
   public int expMonth;
@@ -18,20 +18,13 @@ public class Refund {
   * This method asks and sets the users information so that the refund can go to the right credit or debit card
   * @param payment information is where the users info has been stored
   */
-  public void setPaymentInformation(String paymentInformation) {
+  public void setPaymentInformation(String paymentType) {
     System.out.println("Please enter your form of payment, either credit, debit, or cash");
-    paymentInformation = in.nextLine();
-    if(paymentInformation.equalsIgnoreCase("debit") || paymentInformation.equalsIgnoreCase("credit")) {
-      System.out.println("Please enter your card number: ");
-      this.cardNumber = in.nextInt();
-      System.out.println("Please enter your CVV (security code): ");
-      this.cvv = in.nextInt();
-      System.out.println("Please enter your experation Month: ");
-      this.expMonth = in.nextInt();
-      System.out.println("Please enter your experation year: ");
-      this.expYear = in.nextInt();
+    paymentType = in.nextLine();
+    if(paymentType.equalsIgnoreCase("debit") || paymentType.equalsIgnoreCase("credit")) {
+      setCardInformation();
     }
-    else if(paymentInformation.equalsIgnoreCase("cash"))
+    else if(paymentType.equalsIgnoreCase("cash"))
       System.out.println("Please pay at the concession booth for your ticket.");
     else {
       System.out.println("Please enter a valid form of payment, either credit, debit, or cash");
@@ -39,8 +32,50 @@ public class Refund {
     }
     System.out.println("Thank you, your payment information has been set");
   }
+  
+  /**
+   * This method utilizes the "ret" helper methods below to retrieve and set card information 
+   */
+  public void setCardInformation() {
+	  this.cardNumber = retCardNumber();
+	  this.cvv = retCvv();
+	  this.expMonth = retExpMonth();
+	  this.expYear = retExpYear();
+  }
 
-  /*
+  /**
+   * Below helper methods request and return card information to be set
+   * @return cardNumber, CVVnumber, expMonth, expYear
+   */
+  public int retCardNumber() {
+	System.out.println("Please enter your card number: ");
+	int cardNumber = in.nextInt();
+	return cardNumber;
+  }
+
+
+  public int retCvv() {
+	System.out.println("Please enter your CVV (security code): ");
+	int cvv = in.nextInt();
+	return cvv;
+  }
+
+
+  public int retExpMonth() {
+	System.out.println("Please enter your experation Month: ");
+	int expMonth = in.nextInt();
+	return expMonth;
+  }
+
+
+  public int retExpYear() {
+	System.out.println("Please enter your experation Year: ");
+	int expYear = in.nextInt();
+	return expYear;
+  }
+
+
+/*
   * This method gets the payment information and returns it so the user can confirm their info is correct
   * @returns the payment info of the user
   */
@@ -49,7 +84,11 @@ public class Refund {
   }
 
   public void setSeats(String seats) {
-    //TODO
+    this.seats = seats;
+  }
+  
+  public String getSeats() {
+	return this.seats;
   }
 
   /*
