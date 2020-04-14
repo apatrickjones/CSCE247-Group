@@ -14,31 +14,42 @@ import org.junit.jupiter.api.Test;
 
 class EventDriverTest {
 
-	@Test
+	/*@Test
 	public void testRun() {
 		EventDriver ed = new EventDriver();
 		assertTrue(ed.run(1) = ed.displayEvents());
-
-	}
+	}*/
 
 	@Test
 	void testDisplayMainMenu() {
-		System.out.println("This test ran");
+
 	}
 
 	@Test
 	void testGetUserCommand() {
 		EventDriver ed = new EventDriver();
 		int numCommands = 2;
-		int actual = ed.getUserCommand(numCommands + 2);
-		int expected = 2;
+		int actual = ed.getUserCommand(numCommands);
+		int expected = 1;
+
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	void testErrGetUserCommand() {
+		EventDriver ed = new EventDriver();
+		int numCommands = 1;
+		int actual = ed.getUserCommand(numCommands);
+		int expected = 1;
 
 		assertEquals(expected, actual);
 	}
 
 	@Test
 	void testPayment() {
-		System.out.println("This test ran");
+		EventHandler p1 = new EventHandler();
+		String[] menuOptions = ;
+		p1.printMenuArray(menuOptions);
 	}
 
 	@Test
@@ -50,5 +61,4 @@ class EventDriverTest {
 	void testAccountOptions() {
 		System.out.println("This test ran");
 	}
-
 }
