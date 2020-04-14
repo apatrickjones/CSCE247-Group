@@ -76,7 +76,7 @@ public class EventDriver {
 		* This method takes in the users commands
 		* @param numCommands seeing which command that the user has inputted.
 		*/
-		private int getUserCommand(int numCommands) {
+		public int getUserCommand(int numCommands) {
 			System.out.print("What would you like to do?: ");
 
 			String input = scanner.nextLine();
@@ -104,7 +104,7 @@ public class EventDriver {
 			EventHandler p1 = new EventHandler();
 			p1.run("displayEvents");
 		}
-		
+
 		/*
 		* This method is in charge of accessing Account Options such as creating a new Event
 		* @returns the event and the properties of the event
