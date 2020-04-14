@@ -15,37 +15,40 @@ import org.junit.jupiter.api.Test;
 class EventDriverTest {
 
 	@Test
-	void testRun() {
-		EventDriver UserInterface = new EventDriver();
-
+	public void testRun() {
+		EventDriver ed = new EventDriver();
+		assertTrue(ed.run(1) = ed.displayEvents());
 
 	}
 
 	@Test
 	void testDisplayMainMenu() {
-
+		System.out.println("This test ran");
 	}
 
 	@Test
-	void getUserCommand() {
+	void testGetUserCommand() {
 		EventDriver ed = new EventDriver();
 		int numCommands = 2;
+		int actual = ed.getUserCommand(numCommands + 2);
+		int expected = 2;
 
+		assertEquals(expected, actual);
 	}
 
 	@Test
 	void testPayment() {
-
+		System.out.println("This test ran");
 	}
 
 	@Test
 	void testDisplayEvents() {
-
+		System.out.println("This test ran");
 	}
 
 	@Test
 	void testAccountOptions() {
-
+		System.out.println("This test ran");
 	}
 
 }
