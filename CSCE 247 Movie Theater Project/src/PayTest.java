@@ -19,7 +19,7 @@ class PayTest {
 		Pay p1 = new Pay();
 		String testPaymentInformation = "1234";
 		p1.setPaymentInformation(testPaymentInformation);
-		assertEquals(testPaymentInformation, p1.getPaymentInformation(), "SOMETHING HERE");
+		assertEquals(testPaymentInformation, p1.getPaymentInformation(), "Expected payment information: "+testPaymentInformation+"\nActual Payment information: "+p1.getPaymentInformation());
 	}
 
 	@Test
@@ -30,10 +30,11 @@ class PayTest {
 		assertNotNull(p1.getPaymentInformation());
 	}
 
+	
 	@Test
 	void testCheckout() throws IOException, ParseException {
 		JSONParser parser = new JSONParser();
-		FileReader file = new FileReader("/Users/laddjackson/eclipse-workspace/MovieTheaterApplication/CSCE 247 Movie Theater Project/Events.json");
+		FileReader file = new FileReader("Events.json");
 		
 		Object obj = parser.parse(file);
 		JSONArray JArr = (JSONArray) obj;
@@ -45,16 +46,25 @@ class PayTest {
 	}
 
 	@Test
-	void testUserCheckout() {
+	void testUserCheckout() throws IOException, ParseException {
+		JSONParser parser = new JSONParser();
+		FileReader file = new FileReader("Events.json");
 		
-		//TODO
-		fail("not yet implement");
+		Object obj = parser.parse(file);
+		JSONArray JArr = (JSONArray) obj;
+		
+		Iterator<JSONObject> iterator = JArr.iterator();
+		JSONObject jsonObj = iterator.next();
+		Pay p1 = new Pay();
+		AccountHandler newUser = AccountHandler.getInstance();
+		newUser.createNewAccount();
+		p1.userCheckout(jsonObj, newUser);
 	}
 
 	@Test
 	void testGuestCheckout() throws IOException, ParseException {
 		JSONParser parser = new JSONParser();
-		FileReader file = new FileReader("/Users/laddjackson/eclipse-workspace/MovieTheaterApplication/CSCE 247 Movie Theater Project/Events.json");
+		FileReader file = new FileReader("Events.json");
 		
 		Object obj = parser.parse(file);
 		JSONArray JArr = (JSONArray) obj;
@@ -66,10 +76,12 @@ class PayTest {
 		p1.guestCheckout(jsonObj);
 	}
 	
+	
+	//Testing helper methods
 	@Test
 	void testShowingInformation() throws IOException, ParseException {
 		JSONParser parser = new JSONParser();
-		FileReader file = new FileReader("/Users/laddjackson/eclipse-workspace/MovieTheaterApplication/CSCE 247 Movie Theater Project/Events.json");
+		FileReader file = new FileReader("Events.json");
 		
 		Object obj = parser.parse(file);
 		JSONArray JArr = (JSONArray) obj;
@@ -83,7 +95,7 @@ class PayTest {
 	@Test 
 	void testSeatSelection() throws IOException, ParseException {
 		JSONParser parser = new JSONParser();
-		FileReader file = new FileReader("/Users/laddjackson/eclipse-workspace/MovieTheaterApplication/CSCE 247 Movie Theater Project/Events.json");
+		FileReader file = new FileReader("Events.json");
 		
 		Object obj = parser.parse(file);
 		JSONArray JArr = (JSONArray) obj;
@@ -98,7 +110,7 @@ class PayTest {
 	@Test
 	void testPrintTicket() throws IOException, ParseException {
 		JSONParser parser = new JSONParser();
-		FileReader file = new FileReader("/Users/laddjackson/eclipse-workspace/MovieTheaterApplication/CSCE 247 Movie Theater Project/Events.json");
+		FileReader file = new FileReader("Events.json");
 		
 		Object obj = parser.parse(file);
 		JSONArray JArr = (JSONArray) obj;
@@ -108,6 +120,22 @@ class PayTest {
 		System.out.println(jsonObj);
 		Pay p1 = new Pay();
 		p1.printTicket(jsonObj, "1234 1234");
+	}
+	
+	@Test
+	void testCheckForPaymentInformationNull() {
+		Pay p1 = new Pay();
+		String testPaymentInfo = p1.checkForPaymentInformation(null);
+		assertNotNull(testPaymentInfo);
+	}
+	
+	@Test
+	void testCheckForPaymentInformationUser() {
+		AccountHandler newUser = AccountHandler.getInstance();
+		newUser.createNewAccount();
+		Pay p1 = new Pay();
+		String testPaymentInfo = p1.checkForPaymentInformation(newUser);
+		assertNotNull(testPaymentInfo);
 	}
 
 }

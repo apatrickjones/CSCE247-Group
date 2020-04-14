@@ -74,16 +74,8 @@ public class Pay {
 		//Display matrix of available seating
 		String seatChoice = seatSelection(a);
 		
-		System.out.println("Retreving account payment information...");
 		//Retrieve User's paymentInformation
-		System.out.println("Payment information not found!\n");
-		
-		System.out.println("Please enter payment information: ");
-		String paymentInformation = key.nextLine();
-		while(paymentInformation.isEmpty()) {
-			System.out.println("INVALID PAYMENT INFORMATION! -- Please enter your payment information");
-			paymentInformation = key.nextLine();
-		}
+		String paymentInformation = checkForPaymentInformation(user);
 				
 		System.out.println("\n--Checkout Details--\nEvent: "+eventName+"\nShowing number: "+a.get("showing")+"\nSeat(s):"+seatChoice+"\nStatus: Purchased!\n--------------------\n");
 		System.out.println("Would you like to print your ticket? (Enter yes or no)");
@@ -121,13 +113,8 @@ public class Pay {
 		//Display matrix of available seating
 		String seatChoice = seatSelection(a);
 		
-		//Now since it is a guest transaction, I request payment info
-		System.out.println("Please enter payment information: ");
-		String paymentInformation = key.nextLine();
-		while(paymentInformation.isEmpty()) {
-			System.out.println("INVALID PAYMENT INFORMATION! -- Please enter your payment information");
-			paymentInformation = key.nextLine();
-		}
+		//Now since it is a guest transaction, I request payment info with a param of null
+		String paymentInformation = checkForPaymentInformation(null);
 		
 		System.out.println("\n--Checkout Details--\nEvent: "+eventName+"\nShowing number: "+a.get("showing")+"\nSeat(s):"+seatChoice+"\nStatus: Purchased!\n--------------------\n");
 		System.out.println("Would you like to print your ticket? (Enter yes or no)");
@@ -202,5 +189,37 @@ public class Pay {
 		System.out.println("Enter seat selection (Example input: 3-1, where 3 is the row and 1 is the first seat from left to right): ");
 		
 		return key.nextLine();
+	}
+	
+	/**
+	 * This method attempts to retrieve payment information of a user or accept user input if a guest user
+	 * @param user (if guest, user param will == null)
+	 * @return a string of payment information
+	 */
+	public String checkForPaymentInformation(AccountHandler user) {
+		Scanner key = new Scanner(System.in);
+		String paymentInformation = null;
+
+		if (user != null) {
+			System.out.println("Retreving account payment information...");
+			//Retrieve user's paymentInformation
+			System.out.println("Payment information not found!\n");
+			
+			System.out.println("Please enter payment information: ");
+			paymentInformation = key.nextLine();
+			while(paymentInformation.isEmpty()) {
+				System.out.println("INVALID PAYMENT INFORMATION! -- Please enter your payment information");
+				paymentInformation = key.nextLine();
+			}
+		} else if(user == null){
+			System.out.println("Please enter payment information: ");
+			paymentInformation = key.nextLine();
+			while(paymentInformation.isEmpty()) {
+				System.out.println("INVALID PAYMENT INFORMATION! -- Please enter your payment information");
+				paymentInformation = key.nextLine();
+			}
+		}
+		
+		return paymentInformation;
 	}
 }
